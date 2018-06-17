@@ -1,0 +1,18 @@
+<h2>Please enter the new client info:</h2>
+
+<%= simple_form_for @client do |f| %>
+
+<%= f.input :name %>
+<%= f.input :idcard %>
+<%= f.input :address %>
+<%= f.input :postcode %>
+<%= f.input :city %>
+<%= f.input :contactname %>
+<%= f.input :contactphone1 %>
+<%= f.input :contactphone2 %>
+<%= f.input :contactemail %>
+<%= f.input :comments %>
+<%= f.input :lloguer %>
+<%= f.submit "Confirm client" %>
+
+<% end %>

@@ -1,0 +1,16 @@
+<h1>Available clients</h1>
+
+<%= link_to "Enter a new client", new_client_path%>
+<ul>
+  <% @seccio.each do |client| %>
+  <li>
+    <h2>
+      Client: <%= link_to client.name, client_path(client)%>
+    </h2>
+    <p>Id: <%= client.id %></p>
+
+    <!-- <p>Booking of<= link_to client.booking.activitystart, booking_path(@booking)%></p> -->
+  </li>
+  <% end %>
+</ul>
+  <p><%= link_to "Back home", root_path %></p>

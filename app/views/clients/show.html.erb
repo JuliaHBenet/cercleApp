@@ -1,0 +1,20 @@
+<h2> Client #<%= @client.id %> </h2>
+<p>Nom: <%= @client.name %></p>
+ <p>List of bookings for this client with link to booking#show (by id)</p>
+<ul>
+  <% @client.bookings.order(bookingstart: :desc).where(client: @client).each do |booking| %>
+  <li>
+    <h2>
+      Booking #<%= booking.id %> <%= link_to booking.activityname, booking_path(booking)%>
+    </h2>
+    <p>Start date: <%= booking.bookingstart %></p>
+    <p>End date: <%= booking.bookingend %></p>
+    <p>Room: <%= booking.room.name %></p>
+    <p>Client: <%= booking.client.name %></p>
+  </li>
+  <% end %>
+</ul>
+<%= link_to "Back to all clients", clients_path %>
+<%= link_to "Edit this client", edit_client_path(@client) %>
+
+<%= link_to "Make a booking", new_booking_path %>

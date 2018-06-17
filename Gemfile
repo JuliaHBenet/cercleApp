@@ -52,3 +52,11 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'simple_form'
+gem 'devise'
+gem 'bootstrap-sass'
+gem 'font-awesome-sass'
+gem 'jquery-rails'
+gem 'figaro'
+gem 'mail_form'
+gem 'google-api-client', require: 'google/apis/calendar_v3'

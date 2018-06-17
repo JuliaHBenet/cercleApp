@@ -1,0 +1,23 @@
+<h2>Please enter booking details:</h2>
+
+<%= simple_form_for @booking do |f| %>
+
+<%= f.input :activityname %>
+<%= f.input :activitydescription %>
+<%= f.input :bookingstart %>
+<%= f.input :bookingend %>
+<%= f.input :activitystart %>
+<%= f.input :activityend %>
+<%= f.input :lloguer %>
+<%= f.input :status %>
+<%= f.input :representacio %>
+<%= f.input :comments %>
+<%= f.input :document %>
+<%= f.association :client %>
+<%= f.association :room %>
+<%= f.submit "Confirm booking" %>
+
+<% end %>
+
+<p><%= link_to "Back to all clients", clients_path %></p>
+<%= link_to "Back to client"%>
