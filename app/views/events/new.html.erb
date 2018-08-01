@@ -1,11 +1,11 @@
-<h2>Please enter booking details:</h2>
+<h2>Please enter event details:</h2>
 
-<%= simple_form_for @booking do |f| %>
+<%= simple_form_for @event do |f| %>
 
-<%= f.input :activityname %>
-<%= f.input :activitydescription %>
-<%= f.input :bookingstart %>
-<%= f.input :bookingend %>
+<%= f.input :name %>
+<%= f.input :description %>
+<%= f.input :eventstart %>
+<%= f.input :eventend %>
 <%= f.input :activitystart %>
 <%= f.input :activityend %>
 <%= f.input :lloguer %>
@@ -15,7 +15,7 @@
 <%= f.input :document %>
 <%= f.association :client %>
 <%= f.association :room %>
-<%= f.submit "Confirm booking" %>
+<%= f.submit "Confirm event" %>
 
 <% end %>
 

@@ -9,4 +9,6 @@ class PagesController < ApplicationController
   def seccio
     @seccio = Client.where(lloguer: false)
   end
+  def calendar
+  end
 end

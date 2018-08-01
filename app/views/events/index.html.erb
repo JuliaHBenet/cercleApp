@@ -1,0 +1,34 @@
+<h1>Here are all the events (lloguer true)</h1>
+<ul>
+  <% @events.order(eventstart: :desc).where(lloguer: true).each do |event| %>
+  <li>
+    <h2>
+      Event #<%= event.id %> <%= link_to event.name, event_path(event)%>
+    </h2>
+    <p>Start date: <%= event.eventstart %></p>
+    <p>End date: <%= event.eventend %></p>
+    <p>Room: <%= event.room.name %></p>
+    <p>Client: <%= event.client.name %></p>
+  </li>
+  <% end %>
+</ul>
+
+
+<h1>Here are all the events (secció true)</h1>
+<ul>
+  <% @events.order(eventstart: :desc).where(lloguer: false).each do |event| %>
+  <li>
+    <h2>
+      Event #<%= event.id %> <%= link_to event.name, event_path(event)%>
+    </h2>
+    <p>Start date: <%= event.eventstart %></p>
+    <p>End date: <%= event.eventend %></p>
+    <p>Room: <%= event.room.name %></p>
+    <p>Client: <%= event.client.name %></p>
+  </li>
+  <% end %>
+</ul>
+
+<h4><%= link_to 'Back to informes', informes_path %></h4>
+
+<!-- link_to event.id, room_event_path(event.room, event) -->

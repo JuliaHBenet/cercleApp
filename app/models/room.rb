@@ -1,4 +1,4 @@
 class Room < ApplicationRecord
-  has_many :bookings
+  has_many :events
   validates :name, presence: true
 end

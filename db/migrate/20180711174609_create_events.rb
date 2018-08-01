@@ -1,14 +1,14 @@
-class CreateBookings < ActiveRecord::Migration[5.1]
+class CreateEvents < ActiveRecord::Migration[5.1]
   def change
-    create_table :bookings do |t|
-      t.boolean :lloguer, default: false
+    create_table :events do |t|
+      t.boolean :lloguer
       t.integer :status
       t.string :document
-      t.boolean :representacio, default: false
-      t.string :activityname
-      t.text :activitydescription
-      t.datetime :bookingstart
-      t.datetime :bookingend
+      t.boolean :representacio
+      t.string :name
+      t.text :description
+      t.datetime :eventstart
+      t.datetime :eventend
       t.datetime :activitystart
       t.datetime :activityend
       t.text :comments

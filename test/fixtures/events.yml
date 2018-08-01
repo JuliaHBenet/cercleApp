@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lloguer: false
+  status: 1
+  document: MyString
+  representacio: false
+  name: MyString
+  description: MyText
+  eventstart: 2018-07-11 19:46:09
+  eventend: 2018-07-11 19:46:09
+  activitystart: 2018-07-11 19:46:09
+  activityend: 2018-07-11 19:46:09
+  comments: MyText
+  client: one
+  room: one
+  user: one
+
+two:
+  lloguer: false
+  status: 1
+  document: MyString
+  representacio: false
+  name: MyString
+  description: MyText
+  eventstart: 2018-07-11 19:46:09
+  eventend: 2018-07-11 19:46:09
+  activitystart: 2018-07-11 19:46:09
+  activityend: 2018-07-11 19:46:09
+  comments: MyText
+  client: two
+  room: two
+  user: two

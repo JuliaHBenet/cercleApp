@@ -1,16 +1,16 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :clients
-  resources :bookings
+  resources :events
   resources :rooms
   resources :users
 
   root 'pages#home'
 
-  resources :bookings do
+  resources :events do
     member do
-      patch 'accept', to: 'bookings#accept'
-      patch 'decline', to: 'bookings#decline'
+      patch 'accept', to: 'events#accept'
+      patch 'decline', to: 'events#decline'
     end
   end
 
@@ -19,7 +19,10 @@ Rails.application.routes.draw do
     get :informes
     get :documents
     get :seccio
-    get :calendar
+
   end
+
+  get '/redirect', to: 'event#redirect', as: 'redirect'
+  get '/calendar', to: 'pages#calendar', as: 'calendar'
 
 end

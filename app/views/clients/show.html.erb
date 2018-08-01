@@ -1,20 +1,20 @@
 <h2> Client #<%= @client.id %> </h2>
 <p>Nom: <%= @client.name %></p>
- <p>List of bookings for this client with link to booking#show (by id)</p>
+ <p>List of events for this client with link to event#show (by id)</p>
 <ul>
-  <% @client.bookings.order(bookingstart: :desc).where(client: @client).each do |booking| %>
+  <% @client.events.order(eventstart: :desc).where(client: @client).each do |event| %>
   <li>
     <h2>
-      Booking #<%= booking.id %> <%= link_to booking.activityname, booking_path(booking)%>
+      Event #<%= event.id %> <%= link_to event.name, event_path(event)%>
     </h2>
-    <p>Start date: <%= booking.bookingstart %></p>
-    <p>End date: <%= booking.bookingend %></p>
-    <p>Room: <%= booking.room.name %></p>
-    <p>Client: <%= booking.client.name %></p>
+    <p>Start date: <%= event.eventstart %></p>
+    <p>End date: <%= event.eventend %></p>
+    <p>Room: <%= event.room.name %></p>
+    <p>Client: <%= event.client.name %></p>
   </li>
   <% end %>
 </ul>
 <%= link_to "Back to all clients", clients_path %>
 <%= link_to "Edit this client", edit_client_path(@client) %>
 
-<%= link_to "Make a booking", new_booking_path %>
+<%= link_to "Make a event", new_event_path %>
