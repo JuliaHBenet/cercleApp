@@ -4,6 +4,12 @@ class EventsController < ApplicationController
   def index
     # @events = Event.all #.where("DATE(eventend) >= ?", Date.today)
     @events = Event.where(eventstart: params[:eventstart]..params[:eventend])
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: { events: @events.map(&:to_h) }
+      end
+    end
   end
 
   def show
@@ -64,15 +70,15 @@ class EventsController < ApplicationController
     {
       client_id: Rails.application.secrets.google_client_id,
       client_secret: Rails.application.secrets.google_client_secret,
-      authorization_uri: 'https://accounts.google.com/o/oauth2/auth',
-      token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+      authorization_uri: "https://accounts.google.com/o/oauth2/auth",
+      token_credential_uri: "https://accounts.google.com/o/oauth2/token",
       scope: Google::Apis::CalendarV3::AUTH_CALENDAR,
       redirect_uri: calendar_url
     }
   end
 
   def event_params
-    params.require(:event).permit(:lloguer, :status, :document, :representacio, :name, :description, :eventstart, :eventend, :activitystart, :activityend, :comments, :client, :room, :user)
+    params.require(:event).permit(:lloguer, :status, :document, :representacio, :name, :description, :eventstart, :eventend, :activitystart, :activityend, :comments, :client_id, :room_id, :user)
   end
 
   def set_event
