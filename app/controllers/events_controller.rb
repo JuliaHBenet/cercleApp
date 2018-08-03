@@ -6,11 +6,13 @@ class EventsController < ApplicationController
 
   def index
     # @events = Event.all #.where("DATE(eventend) >= ?", Date.today)
-    @events = Event.where(eventstart: params[:eventstart]..params[:eventend])
+    # @events = Event.where(eventstart: params[:eventstart]..params[:eventend])
+    @events = Event.all
+
     respond_to do |format|
       format.html
       format.json do
-        render json: { events: @events.map(&:to_h) }
+        render json: @events.map(&:to_fullcalendar_hash)
       end
     end
   end
