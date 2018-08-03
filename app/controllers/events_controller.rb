@@ -1,6 +1,9 @@
 class EventsController < ApplicationController
   before_action :set_event, only:[:show, :edit, :update, :destroy, :accept, :decline]
 
+  before_action :authenticate_user!, only: [:new, :create]
+
+
   def index
     # @events = Event.all #.where("DATE(eventend) >= ?", Date.today)
     @events = Event.where(eventstart: params[:eventstart]..params[:eventend])
@@ -21,6 +24,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
+    @event.user = current_user
     if @event.save
       redirect_to event_path(@event)
     else
