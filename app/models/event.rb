@@ -6,4 +6,15 @@ class Event < ApplicationRecord
   validates :description, presence: true
   validates :eventstart, presence: true
   validates :eventend, presence: true
+
+  def to_fullcalendar_hash
+    {
+      id: id,
+      title: name,
+      allDay: false,
+      start: eventstart,
+      end: eventend,
+    }
+  end
+
 end
