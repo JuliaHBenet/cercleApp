@@ -1,4 +1,16 @@
 <h2> Event #<%= link_to @event.id, event_path(@event)%>
     </h2>
     <p>Nom: <%= @event.name %></p>
+
+    <% if (@event.status == Event::PENDING) && policy(@event).accept_or_decline? %>
+
+      <%= simple_form_for @event, url: accept_event_path(@event), method: :patch do |f| %>
+        <%= f.submit "Accept event" %>
+      <% end %>
+
+      <%= simple_form_for @event, url: decline_event_path(@event), method: :patch do |f| %>
+        <%= f.submit "Decline event" %>
+      <% end %>
+
+    <% end %>
 <%= link_to "Back to all events", events_path %>

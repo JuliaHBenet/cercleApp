@@ -33,8 +33,15 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     @client = policy_scope(Client).find(params[:id])
     authorize @event
+
     @event.user = current_user
     @event.client = @client
+    if current_user.role == "admin"
+      @event.status = Event::ACCEPTED
+    else
+      @event.status = Event::PENDING
+    end
+
     if @event.save
       redirect_to event_path(@event)
     else
@@ -54,14 +61,14 @@ class EventsController < ApplicationController
   end
 
   def accept
-    @event.status = 1
-    @event.save
+    authorize @event, :accept_or_decline?
+    @event.update(status: Event::ACCEPTED)
     redirect_to event_path(@event)
   end
 
   def decline
-    @event.status = 2
-    @event.save
+    authorize @event, :accept_or_decline?
+    @event.update(status: Event::DECLINED)
     redirect_to event_path(@event)
   end
 

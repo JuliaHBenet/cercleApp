@@ -19,6 +19,10 @@ class EventPolicy < ApplicationPolicy
     user.role == "admin" || user.role == "premium"
   end
 
+  def accept_or_decline?
+    user.role == "admin"
+  end
+
   class Scope < Scope
     def resolve
       if (user.role == "admin")
