@@ -8,7 +8,7 @@ class EventsController < ApplicationController
     # @events = Event.all #.where("DATE(eventend) >= ?", Date.today)
     # @events = Event.where(eventstart: params[:eventstart]..params[:eventend])
     # @events = Event.all
-    @events = policy_scope(Event) #Everyone can see all the events
+    @events = policy_scope(Event)
 
     respond_to do |format|
       format.html

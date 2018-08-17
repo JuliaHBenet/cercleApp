@@ -19,8 +19,6 @@ Rails.application.routes.draw do
     get :home
     get :informes
     get :documents
-    get :seccio
-
   end
 
   get '/redirect', to: 'event#redirect', as: 'redirect'
