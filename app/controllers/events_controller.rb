@@ -19,15 +19,22 @@ class EventsController < ApplicationController
   end
 
   def show
+    @event = policy_scope(Event).find(params[:id])
+    authorize @event
   end
 
   def new
     @event = Event.new
+    @client = policy_scope(Client).find(params[:id])
+    authorize @event
   end
 
   def create
     @event = Event.new(event_params)
+    @client = policy_scope(Client).find(params[:id])
+    authorize @event
     @event.user = current_user
+    @event.client = @client
     if @event.save
       redirect_to event_path(@event)
     else

@@ -4,24 +4,24 @@ class EventPolicy < ApplicationPolicy
   end
 
   def show?
-    (user.role == admin) || record.lloguer == false
+    (user.role == "admin") || record.lloguer == false
   end
 
   def create?
-    user.role == admin || user.role == premium
+    user.role == "admin" || user.role == "premium"
   end
 
   def update?
-    user.role == admin || user.role == premium
+    user.role == "admin" || user.role == "premium"
   end
 
   def destroy?
-    user.role == admin || user.role == premium
+    user.role == "admin" || user.role == "premium"
   end
 
   class Scope < Scope
     def resolve
-      if (user.role == admin)
+      if (user.role == "admin")
         scope.all
       else
         scope.where(lloguer: false)

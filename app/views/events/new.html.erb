@@ -1,4 +1,4 @@
-<h2>Please enter event details:</h2>
+<h2>Please enter event details for <%= @client.name %>:</h2>
 
 <%= simple_form_for @event do |f| %>
 
@@ -9,11 +9,9 @@
 <%= f.input :activitystart %>
 <%= f.input :activityend %>
 <%= f.input :lloguer %>
-<%= f.input :status %>
 <%= f.input :representacio %>
 <%= f.input :comments %>
 <%= f.input :document %>
-<%= f.association :client %>
 <%= f.association :room %>
 <%= f.input :backgroundColor, :collection  => %w[blue red yellow green] %>
 <%= f.input :borderColor, :collection  => %w[blue red yellow green] %>
