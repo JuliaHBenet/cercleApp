@@ -22,7 +22,11 @@ class ClientPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope.all
+      if user.role == 'admin'
+        scope.all #.sort(:lloguer)
+      else
+        scope.where(lloguer: false)
+      end
     end
   end
 end
