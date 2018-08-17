@@ -2,15 +2,17 @@ class ClientsController < ApplicationController
 before_action :set_client, only: [:show, :edit, :update, :destroy]
 
   def index
-    @clients = Client.all #.where(active: true)
+    # @clients = Client.all .where(active: true)
+    @clients = policy_scope(Client)
   end
 
   def show
-
+    authorize @client
   end
 
   def new
     @client = Client.new
+    authorize @client
   end
 
   def create

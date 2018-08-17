@@ -26,5 +26,5 @@ Client.create(name: "julia3", idcard: "22244", contactname: "Julia3", contactpho
 Client.create(name: "julia4", idcard: "22245", contactname: "Julia4", contactphone1: "664847325", contactemail: "julia4@julia.com", lloguer: true)
 Client.create(name: "julia5", idcard: "22246", contactname: "Julia5", contactphone1: "664847324", contactemail: "julia5@julia.com", lloguer: true)
 
-User.create(name: "xaviuser")
-User.create(name: "juliauser")
+User.create(name: "oneuser", role: "admin")
+User.create(name: "juliauser", role: "premium")
