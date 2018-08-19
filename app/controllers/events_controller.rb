@@ -8,7 +8,7 @@ class EventsController < ApplicationController
     # @events = Event.all #.where("DATE(eventend) >= ?", Date.today)
     # @events = Event.where(eventstart: params[:eventstart]..params[:eventend])
     # @events = Event.all
-    @events = policy_scope(Event) #Everyone can see all the events
+    @events = policy_scope(Event)
 
     respond_to do |format|
       format.html
@@ -19,15 +19,29 @@ class EventsController < ApplicationController
   end
 
   def show
+    @event = policy_scope(Event).find(params[:id])
+    authorize @event
   end
 
   def new
     @event = Event.new
+    @client = policy_scope(Client).find(params[:id])
+    authorize @event
   end
 
   def create
     @event = Event.new(event_params)
+    @client = policy_scope(Client).find(params[:id])
+    authorize @event
+
     @event.user = current_user
+    @event.client = @client
+    if current_user.role == "admin"
+      @event.status = Event::ACCEPTED
+    else
+      @event.status = Event::PENDING
+    end
+
     if @event.save
       redirect_to event_path(@event)
     else
@@ -47,14 +61,14 @@ class EventsController < ApplicationController
   end
 
   def accept
-    @event.status = 1
-    @event.save
+    authorize @event, :accept_or_decline?
+    @event.update(status: Event::ACCEPTED)
     redirect_to event_path(@event)
   end
 
   def decline
-    @event.status = 2
-    @event.save
+    authorize @event, :accept_or_decline?
+    @event.update(status: Event::DECLINED)
     redirect_to event_path(@event)
   end
 

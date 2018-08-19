@@ -7,6 +7,12 @@ class Event < ApplicationRecord
   validates :eventstart, presence: true
   validates :eventend, presence: true
 
+  PENDING = "pending".freeze
+  ACCEPTED = "accepted".freeze
+  DECLINED = "declined".freeze
+
+  STATUSES = [PENDING, ACCEPTED, DECLINED]
+
   def to_fullcalendar_hash
     {
       id: id,

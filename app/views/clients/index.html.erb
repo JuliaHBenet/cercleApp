@@ -1,8 +1,11 @@
 <h1>Available clients</h1>
 
-<%= link_to "Enter a new client", new_client_path%>
+
+<% if policy(Client.new).new? %>
+  <%= link_to "Enter a new client", new_client_path%>
+<% end %>
 <ul>
-  <% @clients.where(lloguer: true).each do |client| %>
+  <% @clients.each do |client| %>
   <li>
     <h2>
       Client: <%= link_to client.name, client_path(client)%>
