@@ -6,7 +6,9 @@
       User #<%= link_to user.id, user_path(user)%>
     </h2>
     <p>Nom: <%= user.name %></p>
-    <p>Role: </p>
+    <p>Email: <%= user.email %></p>
+    <p>Role: <%= user.role %></p>
   </li>
   <% end %>
+
 </ul>

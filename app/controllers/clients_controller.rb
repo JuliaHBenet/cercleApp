@@ -27,20 +27,22 @@ before_action :set_client, only: [:show, :edit, :update, :destroy]
   end
 
   def edit
-
+    authorize @client
   end
 
   def update
+    authorize @client
     @client.update(client_params)
     @client.save
     redirect_to client_path(@client)
   end
 
-  # def destroy
-  #   alert: are you sure?
-  #   @user.active = false
-  #   redirect_to users_path
-  # end
+  def destroy
+    authorize @client
+    flash[:alert] = "Are you sure?"
+    @client.active = false
+    redirect_to clients_path
+  end
 
   private
 

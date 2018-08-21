@@ -4,19 +4,19 @@ class RoomPolicy < ApplicationPolicy
   end
 
   def show?
-    user.role == admin || user.role == premium
+    user.role == "admin" || user.role == "premium"
   end
 
   def create?
-    user.role == admin
+    user.role == "admin"
   end
 
   def update?
-    user.role == admin
+    user.role == "admin"
   end
 
   def destroy?
-    user.role == admin
+    user.role == "admin"
   end
 
   class Scope < Scope

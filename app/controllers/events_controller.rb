@@ -50,9 +50,11 @@ class EventsController < ApplicationController
   end
 
   def edit
+    authorize @event
   end
 
   def update
+    authorize @event
     if @event.save
       redirect_to event_path(@event)
     else
@@ -73,8 +75,17 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @event.destroy
-    redirect_to events_path
+    authorize @event
+    @event.user = current_user
+    if current_user.role == "admin"
+      @event.status = Event::DECLINED
+      redirect_to event_path(@event)
+    else
+      @event.comments = "This event has been preselected to destroy"
+      @event.status = Event::PENDING
+      redirect_to event_path(@event)
+    end
+
   end
 
   def redirect
