@@ -1,2 +1,8 @@
 <h2>This is the documents page</h2>
 <h3><%= link_to 'Back home', root_path %></h3>
+
+<% if current_user.role == "admin" || current_user.role == "premium" %>
+  <h2><%= link_to 'Create a new document' %></h2>
+  <h2><%= link_to 'Edit this document' %></h2>
+  <h2><%= link_to 'Destroy this document' %></h2>
+<% end %>

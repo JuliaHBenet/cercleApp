@@ -11,10 +11,21 @@
     <p>End date: <%= event.eventend %></p>
     <p>Room: <%= event.room.name %></p>
     <p>Client: <%= event.client.name %></p>
+
+    <% if policy(Event.new).new? %>
+      <%= link_to "Make a new event", new_event_path(@client) %>
+    <% end %>
+
+    <% if policy(@client).edit? %>
+    <%= link_to "Edit this client", edit_client_path(@client) %>
+    <% end %>
+
+    <% if policy(@client).destroy? %>
+    <%= link_to "Destroy this client", clients_path(@client) %>
+    <% end %>
   </li>
   <% end %>
 </ul>
 <%= link_to "Back to all clients", clients_path %>
-<%= link_to "Edit this client", edit_client_path(@client) %>
 
-<%= link_to "Make a event", new_event_path(@client) %>
+

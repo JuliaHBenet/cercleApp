@@ -11,9 +11,6 @@
     <p>Room: <%= event.room.name %></p>
     <p>Client: <%= event.client.name %></p>
 
-    <% if policy(@event).edit? %>
-    <%= link_to 'Edit this event', edit_event_path(@event) %>
-    <% end %>
   </li>
   <% end %>
 </ul>
