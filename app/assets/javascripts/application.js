@@ -16,5 +16,7 @@
 //= require bootstrap-sprockets
 //= require moment.min
 //= require fullcalendar
-//= require full_calendar
+//= require popper.min
+//= require bootstrap.min
+//= require light-bootstrap-dashboard
 //= require_tree .
