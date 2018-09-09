@@ -1,12 +1,17 @@
-var initialize_calendar;
-initialize_calendar = function() {
-  $('.calendar').each(function(){
-    var calendar = $(this);
+let initialize_calendar;
+initialize_calendar = function () {
+  $('.calendar').each(function () {
+    const calendar = $(this);
     calendar.fullCalendar({
+      // header: {
+      //   left: 'title',
+      //   center: 'month,agendaWeek,agendaDay',
+      //   right: 'prev,next,today',
+      // },
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month,agendaWeek,agendaDay'
+        right: 'month,agendaWeek,agendaDay',
       },
       selectable: true,
       selectHelper: true,
@@ -14,31 +19,31 @@ initialize_calendar = function() {
       eventLimit: true,
       events: '/events.json',
 
-      select: function(start, end) {
-        $.getScript('/events/new', function() {});
+      select(start, end) {
+        $.getScript('/events/new', () => {});
 
         calendar.fullCalendar('unselect');
       },
 
-      eventDrop: function(event, delta, revertFunc) {
+      eventDrop(event, delta, revertFunc) {
         event_data = {
           event: {
             id: event.id,
             start: event.start.format(),
-            end: event.end.format()
-          }
+            end: event.end.format(),
+          },
         };
         $.ajax({
-            url: event.update_url,
-            data: event_data,
-            type: 'PATCH'
+          url: event.update_url,
+          data: event_data,
+          type: 'PATCH',
         });
       },
 
-      eventClick: function(event, jsEvent, view) {
-        $.getScript(event.edit_url, function() {});
-      }
+      eventClick(event, jsEvent, view) {
+        $.getScript(event.edit_url, () => {});
+      },
     });
-  })
+  });
 };
 $(document).on('turbolinks:load', initialize_calendar);

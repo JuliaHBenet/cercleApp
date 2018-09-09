@@ -25,7 +25,7 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
-    @client = policy_scope(Client).find(params[:id])
+    @client = policy_scope(Client).find(params[:client_id])
     authorize @event
   end
 
