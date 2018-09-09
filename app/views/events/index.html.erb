@@ -1,25 +1,6 @@
-<h1>Here are all the events (lloguer true)</h1>
-<ul>
-  <!-- where(lloguer: true) -->
-  <% @events.order(eventstart: :desc).each do |event| %>
-  <li>
-    <h2>
-      Event #<%= event.id %> <%= link_to event.name, event_path(event)%>
-    </h2>
-    <p>Start date: <%= event.eventstart %></p>
-    <p>End date: <%= event.eventend %></p>
-    <p>Room: <%= event.room.name %></p>
-    <p>Client: <%= event.client.name %></p>
-
-  </li>
-  <% end %>
-</ul>
-
-
-<h1>Here are all the events (secció true)</h1>
+<h1>Here are all the events (lloguer false for every user and true only for admin as specified in event_policy)</h1>
 <ul>
   <% @events.order(eventstart: :desc).each do |event| %>
-  <!-- where(lloguer: false) -->
   <li>
     <h2>
       Event #<%= event.id %> <%= link_to event.name, event_path(event)%>
