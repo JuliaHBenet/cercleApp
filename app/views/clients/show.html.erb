@@ -12,20 +12,20 @@
     <p>Room: <%= event.room.name %></p>
     <p>Client: <%= event.client.name %></p>
 
-    <% if policy(Event.new).create? %>
-      <%= link_to "Make a new event", new_event_path(@client) %>
-    <% end %>
-
-    <% if policy(@client).edit? %>
-    <%= link_to "Edit this client", edit_client_path(@client) %>
-    <% end %>
-
-    <% if policy(@client).destroy? %>
-    <%= link_to "Destroy this client", clients_path(@client) %>
-    <% end %>
   </li>
   <% end %>
 </ul>
+<% if policy(Event.new).create? %>
+  <%= link_to "Make a new event", new_client_event_path({client_id: @client}) %>
+<% end %>
+
+<% if policy(@client).edit? %>
+<%= link_to "Edit this client", edit_client_path(@client) %>
+<% end %>
+
+<% if policy(@client).destroy? %>
+<%= link_to "Destroy this client", clients_path(@client) %>
+<% end %>
 <%= link_to "Back to all clients", clients_path %>
 
 
