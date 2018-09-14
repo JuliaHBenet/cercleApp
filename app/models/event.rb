@@ -20,6 +20,8 @@ class Event < ApplicationRecord
       allDay: false,
       start: eventstart,
       end: eventend,
+      backgroundColor: backgroundColor,
+      borderColor: borderColor,
     }
   end
 

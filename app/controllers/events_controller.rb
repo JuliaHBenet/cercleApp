@@ -43,7 +43,7 @@ class EventsController < ApplicationController
     end
 
     if @event.save
-      redirect_to event_path(@event)
+      redirect_to calendar_path
     else
       render :new
     end
@@ -110,7 +110,9 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:lloguer, :status, :document, :representacio, :name, :description, :eventstart, :eventend, :activitystart, :activityend, :comments, :client_id, :room_id, :user)
+    params.require(:event).permit(:lloguer, :status, :document, :representacio, :name,
+      :description, :eventstart, :eventend, :activitystart, :activityend, :comments,
+      :client_id, :room_id, :user, :backgroundColor, :borderColor)
   end
 
   def set_event
