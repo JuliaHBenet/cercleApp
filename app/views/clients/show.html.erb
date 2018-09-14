@@ -12,7 +12,7 @@
     <p>Room: <%= event.room.name %></p>
     <p>Client: <%= event.client.name %></p>
 
-    <% if policy(Event.new).new? %>
+    <% if policy(Event.new).create? %>
       <%= link_to "Make a new event", new_event_path(@client) %>
     <% end %>
 
