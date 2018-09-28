@@ -124,7 +124,9 @@
                         <%= link_to "Log out", destroy_user_session_path, method: :delete %>
                       <% end %>
                       <p class="notice"><%= notice %></p>
-                      <p class="alert alert-warning"><%= alert %></p>
+                      <% if alert %>
+                        <p class="alert alert-warning"><%= alert %></p>
+                      <% end %>
 
                       <%= yield %>
 

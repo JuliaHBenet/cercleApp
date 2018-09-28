@@ -105,13 +105,6 @@ class EventsController < ApplicationController
 # set status 1 available and 2 busy and not bookable if busy
 # call block_room
 
-  def block_room
-    if event.room == "Escenari" && (event.client.lloguer == true || event.representacio == true)
-      "Descans".status = "busy"
-      "Capella".status = "busy"
-    end
-  end
-
   def set_background_color
     @room = policy_scope(Room).find(@event.room_id)
     @event.room = @room
