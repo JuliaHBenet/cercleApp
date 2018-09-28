@@ -7,6 +7,8 @@ class Event < ApplicationRecord
   validates :eventstart, presence: true
   validates :eventend, presence: true
 
+  validate :overlapping_event
+
   PENDING = "pending".freeze
   ACCEPTED = "accepted".freeze
   DECLINED = "declined".freeze
@@ -24,5 +26,17 @@ class Event < ApplicationRecord
       borderColor: borderColor,
     }
   end
+
+
+  def overlapping_event
+    overlapping_event = room.events.all
+
+    overlapping_event.each do |oa|
+      if (eventstart...eventend).overlaps?(oa.eventstart...oa.eventend)
+        errors.add(:base, 'Room not available in this period of time')
+      end
+    end
+  end
+
 
 end

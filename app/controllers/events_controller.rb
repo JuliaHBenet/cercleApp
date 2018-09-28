@@ -3,7 +3,6 @@ class EventsController < ApplicationController
 
   before_action :authenticate_user!, only: [:new, :create]
   after_action :set_background_color, only: [:create]
-  before_action :overlapping_event, only: [:create, :update]
 
   def index
     # @events = Event.all #.where("DATE(eventend) >= ?", Date.today)
@@ -46,6 +45,7 @@ class EventsController < ApplicationController
     if @event.save
       redirect_to calendar_path
     else
+      flash[:alert] = "There is an overlapping event"
       render :new
     end
   end
@@ -101,16 +101,6 @@ class EventsController < ApplicationController
 
 # check new eventstart and eventend against all other events booked and
 # accepted / pending for that specific room and display error
-
-  def overlapping_event
-    overlapping_event = room.events.all
-
-    overlapping_event.each do |oa|
-      if (eventstart...eventend).overlaps?(oa.eventstart...oa.eventend)
-        errors.add(:base, 'Room not available in this period of time')
-      end
-    end
-  end
 
 # set status 1 available and 2 busy and not bookable if busy
 # call block_room
