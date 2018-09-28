@@ -10,6 +10,8 @@ class Event < ApplicationRecord
   validate :overlapping_event
   validate :blocking_events
 
+  before_save :set_background_color
+
   PENDING = "pending".freeze
   ACCEPTED = "accepted".freeze
   DECLINED = "declined".freeze
@@ -62,15 +64,40 @@ class Event < ApplicationRecord
         end
       end
 
-
     end
   end
 
-  def block_room
-    if event.room == "Escenari" && (event.client.lloguer == true || event.representacio == true)
-      "Descans".status = "busy"
-      "Capella".status = "busy"
+
+  def create_recurring_events
+    if weekly
+      next_occurence = eventstart + 7.days
+      while(next_occurence < recurrence_ends_at) do
+        new_event_attributes = self.attributes.clone
+        new_event_attributes.delete("id")
+        new_event_attributes['eventstart'] = next_occurence
+        new_event_attributes['eventend'] = next_occurence + (eventend - eventstart)
+
+        Event.create(new_event_attributes)
+
+        next_occurence += 7.days
+      end
     end
+  end
+
+  def set_background_color
+    background_colors = {
+      1 => "#ff4d4d",
+      2 => "#d98cb3",
+      3 => "#ffb366",
+      4 => "#d5ff80",
+      5 => "#99ddff",
+      6 => "#80ffff",
+      7 => "#8cb3d9",
+      8 => "#a366ff",
+      9 => "#ffd480",
+      10 => "#cccc00",
+    }
+    self.backgroundColor = background_colors[room_id.to_i] || "#cccccc"
   end
 
 

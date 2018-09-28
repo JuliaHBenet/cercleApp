@@ -2,7 +2,6 @@ class EventsController < ApplicationController
   before_action :set_event, only:[:show, :edit, :update, :destroy, :accept, :decline]
 
   before_action :authenticate_user!, only: [:new, :create]
-  after_action :set_background_color, only: [:create]
 
   def index
     # @events = Event.all #.where("DATE(eventend) >= ?", Date.today)
@@ -43,6 +42,7 @@ class EventsController < ApplicationController
     end
 
     if @event.save
+      @event.create_recurring_events
       redirect_to calendar_path
     else
       flash[:alert] = "There is an overlapping event"
@@ -105,35 +105,6 @@ class EventsController < ApplicationController
 # set status 1 available and 2 busy and not bookable if busy
 # call block_room
 
-  def set_background_color
-    @room = policy_scope(Room).find(@event.room_id)
-    @event.room = @room
-    if @event.room_id == 1
-      @event.backgroundColor = "#ff4d4d"
-    elsif @event.room_id == 2
-      @event.backgroundColor = "#d98cb3"
-    elsif @event.room_id == 3
-      @event.backgroundColor = "#ffb366"
-    elsif @event.room_id == 4
-      @event.backgroundColor = "#d5ff80"
-    elsif @event.room_id == 5
-      @event.backgroundColor = "#99ddff"
-    elsif @event.room_id == 6
-      @event.backgroundColor = "#80ffff"
-    elsif @event.room_id == 7
-      @event.backgroundColor = "#8cb3d9"
-    elsif @event.room_id == 8
-      @event.backgroundColor = "#a366ff"
-    elsif @event.room_id == 9
-      @event.backgroundColor = "#ffd480"
-    elsif @event.room_id == 10
-      @event.backgroundColor = "#cccc00"
-    else
-      @event.backgroundColor = "#cccccc"
-    end
-    @event.save
-  end
-
 
   private
 
@@ -151,7 +122,7 @@ class EventsController < ApplicationController
   def event_params
     params.require(:event).permit(:lloguer, :status, :document, :representacio, :name,
       :description, :eventstart, :eventend, :activitystart, :activityend, :comments,
-      :client_id, :room_id, :user, :backgroundColor, :borderColor)
+      :client_id, :room_id, :user, :backgroundColor, :borderColor, :weekly, :recurrence_ends_at)
   end
 
   def set_event
