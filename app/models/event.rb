@@ -12,6 +12,8 @@ class Event < ApplicationRecord
 
   before_save :set_background_color
 
+  attr_accessor :edit_all_occurences
+
   PENDING = "pending".freeze
   ACCEPTED = "accepted".freeze
   DECLINED = "declined".freeze
@@ -32,11 +34,11 @@ class Event < ApplicationRecord
 
 
   def overlapping_event
-    overlapping_event = room.events.all
+    overlapping_event = room.events.where.not(id: id).all
 
     overlapping_event.each do |oa|
       if (eventstart...eventend).overlaps?(oa.eventstart...oa.eventend)
-        errors.add(:base, 'Room not available in this period of time')
+        errors.add(:base, "Room not available in this period of time (see event ##{oa.id})")
       end
     end
   end
@@ -76,12 +78,22 @@ class Event < ApplicationRecord
         new_event_attributes.delete("id")
         new_event_attributes['eventstart'] = next_occurence
         new_event_attributes['eventend'] = next_occurence + (eventend - eventstart)
+        new_event_attributes['parent_event_id'] = id
 
         Event.create(new_event_attributes)
 
         next_occurence += 7.days
       end
     end
+  end
+
+  def delete_recurring_events
+    Event.where(parent_event_id: id).delete_all
+  end
+
+  def update_recurring_events
+    delete_recurring_events
+    create_recurring_events
   end
 
   def set_background_color

@@ -58,9 +58,15 @@ class EventsController < ApplicationController
   def update
     authorize @event
     @event.update(event_params)
+
+    if @event.weekly && event_params["edit_all_occurences"]
+      @event.update_recurring_events
+    end
+
     if @event.save
       redirect_to event_path(@event)
     else
+      flash[:alert] = @event.errors.full_messages
       render :edit
     end
   end
@@ -99,13 +105,6 @@ class EventsController < ApplicationController
     redirect_to client.authorization_uri.to_s
   end
 
-# check new eventstart and eventend against all other events booked and
-# accepted / pending for that specific room and display error
-
-# set status 1 available and 2 busy and not bookable if busy
-# call block_room
-
-
   private
 
   def client_options
@@ -122,7 +121,8 @@ class EventsController < ApplicationController
   def event_params
     params.require(:event).permit(:lloguer, :status, :document, :representacio, :name,
       :description, :eventstart, :eventend, :activitystart, :activityend, :comments,
-      :client_id, :room_id, :user, :backgroundColor, :borderColor, :weekly, :recurrence_ends_at)
+      :client_id, :room_id, :user, :backgroundColor, :borderColor, :weekly, :recurrence_ends_at,
+      :edit_all_occurences)
   end
 
   def set_event

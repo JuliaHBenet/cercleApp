@@ -14,7 +14,18 @@
 <%= f.association :room %>
 <%= f.input :backgroundColor, :collection  => %w[blue red yellow green] %>
 <%= f.input :borderColor, :collection  => %w[blue red yellow green] %>
-<%= f.input :client_id, :as =>:hidden, :input_html => { :value => @client.id } %>
+<%= f.input :client_id, :as =>:hidden, :input_html => { :value => (@client || @event.client).id } %>
+
+<% if @event.weekly %>
+  <% if @event.parent_event_id %>
+    If you want to modify all occurences of this event, click
+    <%= link_to "here", edit_event_path(Event.find(@event.parent_event_id)) %>
+  <% else %>
+    <% edit_types = [[true, 'Edit this event and all its occurences'], [false, "Edit this event only"]] %>
+    <%= f.input :edit_all_occurences, as: :radio_buttons, collection: edit_types, label_method: :second, value_method: :first, label: false %>
+  <% end %>
+<% end %>
+
 <%= f.submit "Confirm event" %>
 
 <% end %>
