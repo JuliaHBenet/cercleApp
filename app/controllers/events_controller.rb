@@ -2,7 +2,8 @@ class EventsController < ApplicationController
   before_action :set_event, only:[:show, :edit, :update, :destroy, :accept, :decline]
 
   before_action :authenticate_user!, only: [:new, :create]
-
+  after_action :set_background_color, only: [:create]
+  before_action :overlapping_event, only: [:create, :update]
 
   def index
     # @events = Event.all #.where("DATE(eventend) >= ?", Date.today)
@@ -50,11 +51,13 @@ class EventsController < ApplicationController
   end
 
   def edit
+    @client = policy_scope(Client).find(@event.client_id)
     authorize @event
   end
 
   def update
     authorize @event
+    @event.update(event_params)
     if @event.save
       redirect_to event_path(@event)
     else
@@ -79,10 +82,12 @@ class EventsController < ApplicationController
     @event.user = current_user
     if current_user.role == "admin"
       @event.status = Event::DECLINED
+      @event.save
       redirect_to event_path(@event)
     else
       @event.comments = "This event has been preselected to destroy"
       @event.status = Event::PENDING
+      @event.save
       redirect_to event_path(@event)
     end
 
@@ -94,6 +99,57 @@ class EventsController < ApplicationController
     redirect_to client.authorization_uri.to_s
   end
 
+# check new eventstart and eventend against all other events booked and
+# accepted / pending for that specific room and display error
+
+  def overlapping_event
+    overlapping_event = room.events.all
+
+    overlapping_event.each do |oa|
+      if (eventstart...eventend).overlaps?(oa.eventstart...oa.eventend)
+        errors.add(:base, 'Room not available in this period of time')
+      end
+    end
+  end
+
+# set status 1 available and 2 busy and not bookable if busy
+# call block_room
+
+  def block_room
+    if event.room == "Escenari" && (event.client.lloguer == true || event.representacio == true)
+      "Descans".status = "busy"
+      "Capella".status = "busy"
+    end
+  end
+
+  def set_background_color
+    @room = policy_scope(Room).find(@event.room_id)
+    @event.room = @room
+    if @event.room_id == 1
+      @event.backgroundColor = "#ff4d4d"
+    elsif @event.room_id == 2
+      @event.backgroundColor = "#d98cb3"
+    elsif @event.room_id == 3
+      @event.backgroundColor = "#ffb366"
+    elsif @event.room_id == 4
+      @event.backgroundColor = "#d5ff80"
+    elsif @event.room_id == 5
+      @event.backgroundColor = "#99ddff"
+    elsif @event.room_id == 6
+      @event.backgroundColor = "#80ffff"
+    elsif @event.room_id == 7
+      @event.backgroundColor = "#8cb3d9"
+    elsif @event.room_id == 8
+      @event.backgroundColor = "#a366ff"
+    elsif @event.room_id == 9
+      @event.backgroundColor = "#ffd480"
+    elsif @event.room_id == 10
+      @event.backgroundColor = "#cccc00"
+    else
+      @event.backgroundColor = "#cccccc"
+    end
+    @event.save
+  end
 
 
   private

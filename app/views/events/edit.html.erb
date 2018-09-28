@@ -1,1 +1,20 @@
 <h2>Edit your event here</h2>
+
+<%= simple_form_for @event do |f| %>
+
+<%= f.input :name %>
+<%= f.input :description %>
+<%= f.input :eventstart %>
+<%= f.input :eventend %>
+<%= f.input :activitystart %>
+<%= f.input :activityend %>
+<%= f.input :representacio %>
+<%= f.input :comments %>
+<%= f.input :document %>
+<%= f.association :room %>
+<%= f.input :backgroundColor, :collection  => %w[blue red yellow green] %>
+<%= f.input :borderColor, :collection  => %w[blue red yellow green] %>
+<%= f.input :client_id, :as =>:hidden, :input_html => { :value => @client.id } %>
+<%= f.submit "Confirm event" %>
+
+<% end %>
