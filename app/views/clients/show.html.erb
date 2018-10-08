@@ -1,6 +1,26 @@
-<h2> Client #<%= @client.id %> </h2>
-<p>Nom: <%= @client.name %></p>
- <p>List of events for this client with link to event#show (by id)</p>
+<h2><%= @client.name %></h2>
+
+<p>Nom de contacte: <%= @client.contactname %></p>
+<p>Email: <%= @client.contactemail %></p>
+<p>Telèfon: <%= @client.contactphone1 %></p>
+<p>NIF: <%= @client.idcard %></p>
+<p>Adreça: <%= @client.address %> , <%= @client.postcode %>, <%= @client.city %></p>
+<% if @client.comments %>
+  <p>Comentaris: <%= @client.comments %></p>
+<% end %>
+<% if policy(@client).edit? %>
+<%= link_to "Edit this client", edit_client_path(@client) %>
+<% end %>
+
+<% if policy(@client).destroy? %>
+<%= link_to "Destroy this client", clients_path(@client) %>
+<% end %>
+<%= link_to "Back to all clients", clients_path %>
+
+ <h4>List of events for this client</h4>
+<% if policy(Event.new).create? %>
+  <%= link_to "Make a new event", new_client_event_path({client_id: @client}) %>
+<% end %>
 <ul>
   <% @client.events.order(eventstart: :desc).where(client: @client).each do |event| %>
   <li>
@@ -15,17 +35,6 @@
   </li>
   <% end %>
 </ul>
-<% if policy(Event.new).create? %>
-  <%= link_to "Make a new event", new_client_event_path({client_id: @client}) %>
-<% end %>
 
-<% if policy(@client).edit? %>
-<%= link_to "Edit this client", edit_client_path(@client) %>
-<% end %>
-
-<% if policy(@client).destroy? %>
-<%= link_to "Destroy this client", clients_path(@client) %>
-<% end %>
-<%= link_to "Back to all clients", clients_path %>
 
 

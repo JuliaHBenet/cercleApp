@@ -1,18 +1,3 @@
-<h2>Home</h2>
-<h4>5 buttons to</h4>
-<h4> Lloguers: clients.index and events.index (only lloguers true), with link to events.new (lloguer true prefilled)</h4>
-<h4>Secció: clients.index and events.index (only lloguers not true)</h4>
-<h4>Calendari: events.show (all) with link to events.new (lloguer not true prefilled)</h4>
-<h4>Informes: Dashboard</h4>
-<h4>Documents: Upload and download with folders Docs/Videos and Plantilles</h4>
+<%= image_tag("el_cercle_logo.webp") %>
 
-<% if current_user.role == "admin" || current_user.role == "premium"%>
-  <h2><%= link_to 'Secció', clients_path %></h2>
-<% end %>
-<% if current_user.role == "admin" %>
-  <h2><%= link_to 'Lloguers', clients_path %></h2>
-  <h2><%= link_to 'Informes', informes_path %></h2>
-<% end %>
-
-<h2><%= link_to 'Calendari', calendar_path %></h2>
-<h2><%= link_to 'Documents', documents_path %></h2>
+<h4>El Cercle c/ Santa Magdalena,12. 08012 Barcelona (Gràcia). Telèfon 93 415 03 70. elcercle@elcercle.cat</h4>

@@ -20,15 +20,43 @@
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li>
-                        <a href="#pablo">
+                        <a href=home>
                             <i class="now-ui-icons design_app"></i>
-                            <p>Example 1</p>
+                            <p>Home</p>
                         </a>
                     </li>
                     <li>
-                        <a href="#pablo">
+                        <a href=calendar>
+                            <i class="now-ui-icons design_app"></i>
+                            <p>Calendari</p>
+                        </a>
+                    </li>
+                    <% if current_user.role == "admin" || current_user.role == "premium" %>
+                    <li>
+                        <a href="clients?lloguer=false">
                             <i class="now-ui-icons users_single-02"></i>
-                            <p>Example 2</p>
+                            <p>Secció</p>
+                        </a>
+                    </li>
+                    <% end %>
+                    <% if current_user.role == "admin" %>
+                    <li>
+                        <a href="clients?lloguer=true">
+                            <i class="now-ui-icons users_single-02"></i>
+                            <p>Lloguers</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="informes">
+                            <i class="now-ui-icons users_single-02"></i>
+                            <p>Informes</p>
+                        </a>
+                    </li>
+                    <% end %>
+                    <li>
+                        <a href="documents">
+                            <i class="now-ui-icons users_single-02"></i>
+                            <p>Documents</p>
                         </a>
                     </li>
                 </ul>
@@ -107,9 +135,11 @@
                                     <a class="dropdown-item" href="#">
                                         <i class="nc-icon nc-lock-circle-open"></i> Lock Screen
                                     </a>
-                                    <a href="#" class="dropdown-item text-danger">
+                                    <% if current_user %>
+                                    <a href="/users/sign_out" class="dropdown-item text-danger">
                                         <i class="nc-icon nc-button-power"></i> Log out
                                     </a>
+                                    <% end %>
                                 </div>
                             </li>
                         </ul>

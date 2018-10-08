@@ -3,7 +3,13 @@ before_action :set_client, only: [:show, :edit, :update, :destroy]
 
   def index
     # @clients = Client.all .where(active: true)
-    @clients = policy_scope(Client)
+    # @clients = policy_scope(Client)
+
+    if params[:lloguer]
+      @clients = policy_scope(Client.where(lloguer: params[:lloguer]))
+    else
+      @clients = policy_scope(Client.where(lloguer: params[:lloguer]))
+    end
   end
 
   def show
