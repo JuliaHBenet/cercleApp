@@ -16,7 +16,7 @@
 <%= f.input :borderColor, :collection  => %w[blue red yellow green] %>
 <%= f.input :client_id, :as =>:hidden, :input_html => { :value => (@client || @event.client).id } %>
 
-<% if @event.weekly %>
+<% if @event.weekly || @event.monthly_number || @event.monthly_day %>
   <% if @event.parent_event_id %>
     If you want to modify all occurences of this event, click
     <%= link_to "here", edit_event_path(Event.find(@event.parent_event_id)) %>

@@ -81,9 +81,35 @@ class Event < ApplicationRecord
         new_event_attributes['parent_event_id'] = id
 
         Event.create(new_event_attributes)
-
         next_occurence += 7.days
       end
+
+    elsif monthly_number
+      next_occurence = eventstart + 1.month
+      while(next_occurence < recurrence_ends_at) do
+        new_event_attributes = self.attributes.clone
+        new_event_attributes.delete("id")
+        new_event_attributes['eventstart'] = next_occurence
+        new_event_attributes['eventend'] = next_occurence + (eventend - eventstart)
+        new_event_attributes['parent_event_id'] = id
+
+        Event.create(new_event_attributes)
+        next_occurence += 7.days
+      end
+
+    elsif monthly_day
+      next_occurence = eventstart + 4.weeks
+      while(next_occurence < recurrence_ends_at) do
+        new_event_attributes = self.attributes.clone
+        new_event_attributes.delete("id")
+        new_event_attributes['eventstart'] = next_occurence
+        new_event_attributes['eventend'] = next_occurence + (eventend - eventstart)
+        new_event_attributes['parent_event_id'] = id
+
+        Event.create(new_event_attributes)
+        next_occurence += 7.days
+      end
+
     end
   end
 

@@ -59,7 +59,7 @@ class EventsController < ApplicationController
     authorize @event
     @event.update(event_params)
 
-    if @event.weekly && event_params["edit_all_occurences"]
+    if (@event.weekly || @event.monthly_number || @event.monthly_day) && event_params["edit_all_occurences"]
       @event.update_recurring_events
     end
 
@@ -121,7 +121,8 @@ class EventsController < ApplicationController
   def event_params
     params.require(:event).permit(:lloguer, :status, :document, :representacio, :name,
       :description, :eventstart, :eventend, :activitystart, :activityend, :comments,
-      :client_id, :room_id, :user, :backgroundColor, :borderColor, :weekly, :recurrence_ends_at,
+      :client_id, :room_id, :user, :backgroundColor, :borderColor, :weekly,
+      :monthly_number, :monthly_day, :recurrence_ends_at,
       :edit_all_occurences)
   end
 
