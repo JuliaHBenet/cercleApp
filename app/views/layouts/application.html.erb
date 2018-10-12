@@ -26,38 +26,23 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                      <a href=calendar  class="nav-link">
-                            <i class="now-ui-icons design_app"></i>
-                            <p>Calendari</p>
-                        </a>
+                      <%= link_to "Calendari", calendar_path, class: "nav-link" %>
                     </li>
                     <% if current_user&.role.in?(["admin", "premium"]) %>
                     <li class="nav-item">
-                      <a href="clients?lloguer=false"  class="nav-link">
-                            <i class="now-ui-icons users_single-02"></i>
-                            <p>Secció</p>
-                        </a>
+                      <%= link_to "Secció", clients_path(lloguer: false), class: "nav-link" %>
                     </li>
                     <% end %>
                     <% if current_user&.role == "admin" %>
                     <li class="nav-item">
-                      <a href="clients?lloguer=true"  class="nav-link">
-                            <i class="now-ui-icons users_single-02"></i>
-                            <p>Lloguers</p>
-                        </a>
+                      <%= link_to "Logguers", clients_path(lloguer: true), class: "nav-link" %>
                     </li>
                     <li class="nav-item">
-                      <a href="informes"  class="nav-link">
-                        <i class="now-ui-icons users_single-02"></i>
-                        <p>Informes</p>
-                      </a>
+                      <%= link_to "Informes", informes_path, class: "nav-link" %>
                     </li>
                     <% end %>
                     <li class="nav-item">
-                      <a href="documents"  class="nav-link">
-                        <i class="now-ui-icons users_single-02"></i>
-                        <p>Documents</p>
-                      </a>
+                      <%= link_to "Documents", documents_path, class: "nav-link" %>
                     </li>
                 </ul>
             </div>
