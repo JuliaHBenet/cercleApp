@@ -10,5 +10,8 @@ class PagesController < ApplicationController
   end
 
   def calendar
+    if params[:print]
+      render "calendar", layout: 'print'
+    end
   end
 end

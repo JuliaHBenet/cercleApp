@@ -13,6 +13,5 @@
  *= require fullcalendar.min
  *= require bootstrap.min
  *= require light-bootstrap-dashboard
- *= require_tree .
  *= require_self
  */
