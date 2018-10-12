@@ -1,19 +1,23 @@
-<h1>Available clients</h1>
-
-
-<% if policy(Client.new).new? %>
-  <%= link_to "Enter a new client", new_client_path%>
+<% content_for :title do %>
+  Available clients
 <% end %>
-<ul>
-  <% @clients.each do |client| %>
-  <li>
-    <h2>
-      Client: <%= link_to client.name, client_path(client)%>
-    </h2>
-    <p>Id: <%= client.id %></p>
 
-    <!-- <p>Event of<= link_to client.event.activitystart, event_path(@event)%></p> -->
-  </li>
-  <% end %>
-</ul>
-  <p><%= link_to "Back home", root_path %></p>
+
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">
+      Available clients
+    </h4>
+  </div>
+  <div class="card-body">
+    <% @clients.each do |client| %>
+      <h4 class="card-title">
+        <%= link_to client.name, client_path(client)%>
+      </h4>
+    <% end %>
+
+    <% if policy(Client.new).new? %>
+      <%= link_to "Enter a new client", new_client_path, class: "btn btn-primary btn-wd"%>
+    <% end %>
+  </div>
+</div>
