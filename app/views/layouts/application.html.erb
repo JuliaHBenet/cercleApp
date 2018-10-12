@@ -75,9 +75,7 @@
                                       Profile
                                     </a>
                                     <% if current_user %>
-                                    <a href="/users/sign_out" class="dropdown-item text-danger">
-                                        Log out
-                                    </a>
+                                      <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
                                     <% end %>
                                 </div>
                             </li>
@@ -89,9 +87,6 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="section">
-                      <% if current_user %>
-                        <%= link_to "Log out", destroy_user_session_path, method: :delete %>
-                      <% end %>
                       <p class="notice"><%= notice %></p>
                       <% if alert %>
                         <p class="alert alert-warning"><%= alert %></p>
