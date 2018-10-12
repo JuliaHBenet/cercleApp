@@ -29,6 +29,7 @@ class Event < ApplicationRecord
       end: eventend,
       backgroundColor: backgroundColor,
       borderColor: borderColor,
+      url: Rails.application.routes.url_helpers.edit_event_path(id),
     }
   end
 
