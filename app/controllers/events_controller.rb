@@ -10,7 +10,11 @@ class EventsController < ApplicationController
     @events = policy_scope(Event)
 
     respond_to do |format|
-      format.html
+      format.html do
+        if params[:status]
+          @events = @events.where(status: params[:status])
+        end
+      end
       format.json do
         render json: @events.map(&:to_fullcalendar_hash)
       end
