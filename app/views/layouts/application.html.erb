@@ -17,13 +17,11 @@
     <div class="wrapper">
         <div class="sidebar" data-color="orange" data-image="../assets/img/sidebar-5.jpg">
             <div class="sidebar-wrapper">
+              <div class="logo">
+                <%= link_to "", root_path, class: "simple-text logo-mini" %>
+                <%= link_to "El Cercle", root_path, class: "simple-text logo-normal" %>
+              </div>
                 <ul class="nav">
-                    <li class="nav-item">
-                        <a href=home class="nav-link">
-                            <i class="now-ui-icons design_app"></i>
-                            <p>Home</p>
-                        </a>
-                    </li>
                     <li class="nav-item">
                       <%= link_to "Calendari", calendar_path, class: "nav-link" %>
                     </li>
@@ -68,10 +66,8 @@
                                     <%= link_to "Pending events", events_path(status: Event::PENDING), class: "dropdown-item" %>
                                   <% end %>
                                   <div class="divider"></div>
-                                  <a class="dropdown-item" href="#">
-                                    Profile
-                                  </a>
                                   <% if current_user %>
+                                    <%= link_to "Profile", user_path(current_user), class: "dropdown-item" %>
                                     <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
                                   <% end %>
                                 </div>

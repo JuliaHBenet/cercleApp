@@ -7,7 +7,7 @@ class EventsController < ApplicationController
     # @events = Event.all #.where("DATE(eventend) >= ?", Date.today)
     # @events = Event.where(eventstart: params[:eventstart]..params[:eventend])
     # @events = Event.all
-    @events = policy_scope(Event)
+    @events = policy_scope(Event).order("eventstart desc")
 
     respond_to do |format|
       format.html do
@@ -16,7 +16,7 @@ class EventsController < ApplicationController
         end
       end
       format.json do
-        render json: @events.map(&:to_fullcalendar_hash)
+        render json: @events.where.not(status: Event::DECLINED).map(&:to_fullcalendar_hash)
       end
     end
   end
@@ -61,13 +61,12 @@ class EventsController < ApplicationController
 
   def update
     authorize @event
-    @event.update(event_params)
 
-    if (@event.weekly || @event.monthly_number || @event.monthly_day) && event_params["edit_all_occurences"]
-      @event.update_recurring_events
-    end
+    if @event.update(event_params)
 
-    if @event.save
+      if (@event.weekly || @event.monthly_number || @event.monthly_day) && event_params["edit_all_occurences"]
+        @event.update_recurring_events
+      end
       redirect_to event_path(@event)
     else
       flash[:alert] = @event.errors.full_messages
