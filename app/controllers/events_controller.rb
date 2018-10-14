@@ -7,7 +7,7 @@ class EventsController < ApplicationController
     # @events = Event.all #.where("DATE(eventend) >= ?", Date.today)
     # @events = Event.where(eventstart: params[:eventstart]..params[:eventend])
     # @events = Event.all
-    @events = policy_scope(Event)
+    @events = policy_scope(Event).order("eventstart desc")
 
     respond_to do |format|
       format.html do
