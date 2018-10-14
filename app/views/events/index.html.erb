@@ -9,6 +9,13 @@
     <p>End date: <%= event.eventend %></p>
     <p>Room: <%= event.room.name %></p>
     <p>Client: <%= event.client.name %></p>
+    <% if params[:status] == Event::PENDING %>
+      <% if (event.status == Event::PENDING) && policy(event).accept_or_decline? %>
+        <%= simple_form_for @event, url: accept_event_path(event), method: :patch do |f| %>
+          <%= f.submit "Accept event" %>
+        <% end %>
+      <% end %>
+    <% end %>
   </li>
   <% end %>
 </ul>
