@@ -61,13 +61,12 @@ class EventsController < ApplicationController
 
   def update
     authorize @event
-    @event.update(event_params)
 
-    if (@event.weekly || @event.monthly_number || @event.monthly_day) && event_params["edit_all_occurences"]
-      @event.update_recurring_events
-    end
+    if @event.update(event_params)
 
-    if @event.save
+      if (@event.weekly || @event.monthly_number || @event.monthly_day) && event_params["edit_all_occurences"]
+        @event.update_recurring_events
+      end
       redirect_to event_path(@event)
     else
       flash[:alert] = @event.errors.full_messages
