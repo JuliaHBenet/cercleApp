@@ -14,6 +14,7 @@
 <%= f.input :monthly_number %>
 <%= f.input :recurrence_ends_at %>
 <%= f.input :comments, input_html: { rows: 5, style: "height: auto;" } %>
+<%= f.input :comments2, input_html: { rows: 5, style: "height: auto;" } %>
 <%= f.input :document %>
 <%= f.association :room %>
 <%= f.input :client_id, :as =>:hidden, :input_html => { :value => @client.id } %>

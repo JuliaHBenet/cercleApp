@@ -23,6 +23,10 @@ class EventPolicy < ApplicationPolicy
     user.role == "admin"
   end
 
+  def obert_o_tancat?
+    user.role == "admin"
+  end
+
   class Scope < Scope
     def resolve
       if (user.role == "admin")
