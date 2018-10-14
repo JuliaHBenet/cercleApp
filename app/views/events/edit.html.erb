@@ -9,7 +9,7 @@
 <%= f.input :activitystart %>
 <%= f.input :activityend %>
 <%= f.input :representacio %>
-<%= f.input :comments %>
+<%= f.input :comments, input_html: { rows: 5, style: "height: auto;" } %>
 <%= f.input :document %>
 <%= f.association :room %>
 <%= f.input :backgroundColor, :collection  => %w[blue red yellow green] %>
