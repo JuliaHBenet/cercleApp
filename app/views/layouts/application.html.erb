@@ -66,10 +66,8 @@
                                     <%= link_to "Pending events", events_path(status: Event::PENDING), class: "dropdown-item" %>
                                   <% end %>
                                   <div class="divider"></div>
-                                  <a class="dropdown-item" href="#">
-                                    Profile
-                                  </a>
                                   <% if current_user %>
+                                    <%= link_to "Profile", user_path(current_user), class: "dropdown-item" %>
                                     <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
                                   <% end %>
                                 </div>
