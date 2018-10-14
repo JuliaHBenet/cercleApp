@@ -87,6 +87,20 @@ class EventsController < ApplicationController
     redirect_to event_path(@event)
   end
 
+  def obert
+    authorize @event, :obert_o_tancat?
+    @event.obert = true
+    @event.save
+    redirect_to event_path(@event)
+  end
+
+  def tancat
+    authorize @event, :obert_o_tancat?
+    @event.obert = false
+    @event.save
+    redirect_to event_path(@event)
+  end
+
   def destroy
     authorize @event
     @event.user = current_user

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181010142448) do
+ActiveRecord::Schema.define(version: 20181014154511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20181010142448) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "active", default: true
+    t.boolean "falta_info", default: false
   end
 
   create_table "events", force: :cascade do |t|
@@ -55,6 +56,8 @@ ActiveRecord::Schema.define(version: 20181010142448) do
     t.integer "parent_event_id"
     t.boolean "monthly_number"
     t.boolean "monthly_day"
+    t.boolean "obert"
+    t.string "comments2"
     t.index ["client_id"], name: "index_events_on_client_id"
     t.index ["parent_event_id"], name: "index_events_on_parent_event_id"
     t.index ["room_id"], name: "index_events_on_room_id"
