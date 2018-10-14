@@ -16,7 +16,7 @@ class EventsController < ApplicationController
         end
       end
       format.json do
-        render json: @events.map(&:to_fullcalendar_hash)
+        render json: @events.where.not(status: Event::DECLINED).map(&:to_fullcalendar_hash)
       end
     end
   end
