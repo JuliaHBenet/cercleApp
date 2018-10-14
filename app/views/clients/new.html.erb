@@ -2,16 +2,16 @@
 
 <%= simple_form_for @client do |f| %>
 
-<%= f.input :name %>
-<%= f.input :idcard %>
-<%= f.input :address %>
-<%= f.input :postcode %>
-<%= f.input :city %>
-<%= f.input :contactname %>
-<%= f.input :contactphone1 %>
-<%= f.input :contactphone2 %>
-<%= f.input :contactemail %>
-<%= f.input :comments %>
+<%= f.input :name, :label => "Nom" %>
+<%= f.input :idcard, :label => "NIF" %>
+<%= f.input :address, :label => "Adreça" %>
+<%= f.input :postcode, :label => "Codi Postal" %>
+<%= f.input :city, :label => "Ciutat" %>
+<%= f.input :contactname, :label => "Nom de contacte" %>
+<%= f.input :contactphone1, :label => "Telèfon 1" %>
+<%= f.input :contactphone2, :label => "Telèfon 2" %>
+<%= f.input :contactemail, :label => "Email" %>
+<%= f.input :comments, :label => "Comentaris" %>
 <%= f.input :lloguer %>
 <%= f.submit "Confirm client" %>
 

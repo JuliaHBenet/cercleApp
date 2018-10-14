@@ -10,6 +10,7 @@ class Event < ApplicationRecord
   validate :overlapping_event
   validate :blocking_events
 
+  before_save :set_border_color
   before_save :set_background_color
 
   attr_accessor :edit_all_occurences
@@ -121,6 +122,22 @@ class Event < ApplicationRecord
   def update_recurring_events
     delete_recurring_events
     create_recurring_events
+  end
+
+  def set_border_color
+    border_colors = {
+      1 => "#ff4d4d",
+      2 => "#d98cb3",
+      3 => "#ffb366",
+      4 => "#d5ff80",
+      5 => "#99ddff",
+      6 => "#80ffff",
+      7 => "#8cb3d9",
+      8 => "#a366ff",
+      9 => "#ffd480",
+      10 => "#cccc00",
+    }
+    self.borderColor = border_colors[room_id.to_i] || "#cccccc"
   end
 
   def set_background_color

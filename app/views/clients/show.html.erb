@@ -1,5 +1,5 @@
 <h2><%= @client.name %></h2>
-
+<p>#<%= @client.id %> </p>
 <p>Nom de contacte: <%= @client.contactname %></p>
 <p>Email: <%= @client.contactemail %></p>
 <p>Telèfon: <%= @client.contactphone1 %></p>
@@ -9,27 +9,30 @@
   <p>Comentaris: <%= @client.comments %></p>
 <% end %>
 <% if policy(@client).edit? %>
-<%= link_to "Edit this client", edit_client_path(@client) %>
+<%= link_to "Edit this client", edit_client_path(@client), class: "btn btn-primary btn-wd" %>
 <% end %>
 
+<!-- COMMENTED OUT
 <% if policy(@client).destroy? %>
 <%= link_to "Destroy this client", clients_path(@client) %>
 <% end %>
-<%= link_to "Back to all clients", clients_path %>
+ END OF COMMENTED OUT -->
 
- <h4>List of events for this client</h4>
+<%= link_to "Back to all clients", clients_path, class: "btn btn-primary btn-wd" %>
+
+ <h3>Llista de reserves</h3>
 <% if policy(Event.new).create? %>
-  <%= link_to "Make a new event", new_client_event_path({client_id: @client}) %>
+  <%= link_to "Make a new event", new_client_event_path({client_id: @client}), class: "btn btn-success btn-wd" %>
 <% end %>
 <ul>
   <% @client.events.order(eventstart: :desc).where(client: @client).each do |event| %>
   <li>
-    <h2>
-      Event #<%= event.id %> <%= link_to event.name, event_path(event)%>
-    </h2>
-    <p>Start date: <%= event.eventstart %></p>
-    <p>End date: <%= event.eventend %></p>
-    <p>Room: <%= event.room.name %></p>
+    <h3>
+      #<%= event.id %> <%= link_to event.name, event_path(event)%>
+    </h3>
+    <p>Data inici: <%= event.eventstart.strftime("%d %b %Y a les %H:%M")  %></p>
+    <p>Data fi: <%= event.eventend.strftime("%d %b %Y a les %H:%M") %></p>
+    <p>Sala: <%= event.room.name %></p>
     <p>Client: <%= event.client.name %></p>
 
   </li>
