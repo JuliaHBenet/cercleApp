@@ -1,31 +1,43 @@
-<h2>Edit your event here</h2>
+<div class="card">
+  <div class="card-header">
+    <h3>Edita la reserva</h3>
+  </div>
 
-<%= simple_form_for @event do |f| %>
+  <div class="card-body">
+    <%= simple_form_for @event do |f| %>
 
-<%= f.input :name %>
-<%= f.input :description %>
-<%= f.input :eventstart %>
-<%= f.input :eventend %>
-<%= f.input :activitystart %>
-<%= f.input :activityend %>
-<%= f.input :representacio %>
-<%= f.input :comments, input_html: { rows: 5, style: "height: auto;" } %>
-<%= f.input :document %>
-<%= f.association :room %>
-<%= f.input :backgroundColor, :collection  => %w[blue red yellow green] %>
-<%= f.input :borderColor, :collection  => %w[blue red yellow green] %>
-<%= f.input :client_id, :as =>:hidden, :input_html => { :value => (@client || @event.client).id } %>
+    <%= f.input :name, :label => "Nom" %>
+    <%= f.input :description, :label => "Descripció" %>
+    <%= f.input :eventstart, :label => "Data inici" %>
+    <%= f.input :eventend, :label => "Data fi" %>
+    <%= f.input :activitystart, :label => "Inici acivitat" %>
+    <%= f.input :activityend, :label => "Fi acivitat" %>
+    <%= f.input :representacio, :label => ". Representació?" %>
+    <%= f.input :comments, input_html: { rows: 5, style: "height: auto;" }, :label => "Comentari general" %>
+    <%= f.input :comments2, input_html: { rows: 5, style: "height: auto;" }, :label => "Comentari intern" %>
+    <%= f.input :document, :label => "Link de documents" %>
+    <%= f.association :room, :label => "Sala" %>
+    <br>
+    <p>És una reserva recurrent?</p>
+    <%= f.input :weekly, :label => ". Setmanal" %>
+    <%= f.input :monthly_day, :label => ". Mensual (dia de la setmana)"  %>
+    <%= f.input :monthly_number, :label => ". Mensual (número del mes)"  %>
+    <%= f.input :recurrence_ends_at, :label => "Data fi de recurrència"  %>
+    <%= f.input :client_id, :as =>:hidden, :input_html => { :value => (@client || @event.client).id } %>
 
-<% if @event.weekly || @event.monthly_number || @event.monthly_day %>
-  <% if @event.parent_event_id %>
-    If you want to modify all occurences of this event, click
-    <%= link_to "here", edit_event_path(Event.find(@event.parent_event_id)) %>
-  <% else %>
-    <% edit_types = [[true, 'Edit this event and all its occurences'], [false, "Edit this event only"]] %>
-    <%= f.input :edit_all_occurences, as: :radio_buttons, collection: edit_types, label_method: :second, value_method: :first, label: false %>
-  <% end %>
-<% end %>
+    <% if @event.weekly || @event.monthly_number || @event.monthly_day %>
+      <% if @event.parent_event_id %>
+        Si vols modificar aquesta reserva i totes les seves recurrències, clica
+        <%= link_to "aquí", edit_event_path(Event.find(@event.parent_event_id)) %>
+      <% else %>
+        <% edit_types = [[true, 'Edita aquesta reserva i totes les recurrències'], [false, "Edita només aquesta reserva"]] %>
+        <%= f.input :edit_all_occurences, as: :radio_buttons, collection: edit_types, label_method: :second, value_method: :first, label: false %>
+      <% end %>
+    <% end %>
+    <br>
+    <p></p>
+    <%= f.submit "Confirmar reserva", class: "btn btn-info btn-wd btn-outline" %>
 
-<%= f.submit "Confirm event" %>
-
-<% end %>
+    <% end %>
+  </div>
+</div>

@@ -1,3 +1,59 @@
-<h2>This is the reports page </h2>
-<h3><%= link_to 'Tots els lloguers', events_path %></h3>
-<h3><%= link_to 'Back home', root_path %></h3>
+<h2>Informes </h2>
+<br>
+<h5><%= link_to 'Totes les reserves', events_path, class: "btn btn-label" %></h5>
+
+<div class="card-body">
+  <button class="btn btn-default btn-wd">Default</button>
+  <button class="btn btn-primary btn-wd">Primary</button>
+  <button class="btn btn-info btn-wd">Info</button>
+  <button class="btn btn-success btn-wd">Success</button>
+  <button class="btn btn-warning btn-wd">Warning</button>
+  <button class="btn btn-danger btn-wd">Danger</button>
+</div>
+
+<div class="card-body">
+    <button class="btn btn-wd">Default</button>
+    <button class="btn btn-outline btn-wd">Outline</button>
+    <button class="btn btn-round btn-wd">Fill + Round</button>
+    <button class="btn btn-outline btn-round btn-wd">Outline + Round</button>
+    <button class="btn btn-simple btn-link btn-wd">Simple</button>
+</div>
+
+<div class="card-body">
+  <button type="button" class="btn btn-wd btn-success btn-outline">
+      <span class="btn-label">
+          <i class="fa fa-check"></i>
+      </span>
+      Success
+  </button>
+  <button type="button" class="btn btn-wd btn-danger btn-outline">
+      <span class="btn-label">
+          <i class="fa fa-times"></i>
+      </span>
+      Danger
+  </button>
+  <button type="button" class="btn btn-wd btn-info btn-outline">
+      <span class="btn-label">
+          <i class="fa fa-exclamation"></i>
+      </span>
+      Info
+  </button>
+  <button type="button" class="btn btn-wd btn-warning btn-outline">
+      <span class="btn-label">
+          <i class="fa fa-warning"></i>
+      </span>
+      Warning
+  </button>
+  <button type="button" class="btn btn-wd btn-default btn-outline">
+      <span class="btn-label">
+          <i class="fa fa-arrow-left"></i>
+      </span>
+      Left
+  </button>
+  <button type="button" class="btn btn-wd btn-default btn-outline">
+      Right
+      <span class="btn-label btn-label-right">
+          <i class="fa fa-arrow-right"></i>
+      </span>
+  </button>
+</div>

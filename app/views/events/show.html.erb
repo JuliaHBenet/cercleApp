@@ -1,18 +1,51 @@
-<h2> Event #<%= @event.id %> </h2>
-    <p>Nom: <%= @event.name %></p>
-    <p>Status: <%= @event.status %></p>
+<h2> <%= @event.name.upcase %></h2>
+
+<div class="card">
+  <div class="card-body">
+
+    <p><b>Reserva #</b><%= @event.id %></p>
+    <p><b>Status:</b> <%= @event.status.capitalize %></p>
+    <p><b>Descripció:</b> <%= @event.description.capitalize %></p>
+    <p><b>Data inici:</b> <%= @event.eventstart.strftime("%d %b %Y a les %H:%M") %></p>
+    <p><b>Data fi:</b> <%= @event.eventend.strftime("%d %b %Y a les %H:%M") %></p>
+    <% if @event.client.lloguer %>
+      <p><b>Inici activitat:</b> <%= @event.activitystart.strftime("%d %b %Y a les %H:%M") %></p>
+      <p><b>Fi activitat:</b> <%= @event.activityend.strftime("%d %b %Y a les %H:%M") %></p>
+    <% end %>
+    <p><b>Sala:</b> <%= @event.room.name %></p>
     <% if @event.document != "" %>
-      <p>Documents: <%= @event.document %></p>
+      <p><b>Documents:</b> <%= @event.document %></p>
+    <% else %>
+      <p><b>Documents:</b> Cap document adjunt</p>
+    <% end %>
+    <% if @event.comments != "" %>
+      <p><b>Comentari general:</b> <%= @event.comments %></p>
+    <% elsif @event.comments2 != "" %>
+      <p><b>Comentari intern:</b> <%= @event.comments2 %></p>
+    <% else %>
+      <p><b>Comentaris: No hi ha comentaris</b></p>
+    <% end %>
+
+    <% if @event.room.name == Room::ESCENARI && @event.representacio %>
+      <p>Representació</p>
+    <% else %>
+      <p>No representació</p>
+    <% end %>
+
+    <% if @event.weekly  %>
+      <p>Reserva setmanal</p>
+    <% elsif @event.monthly_number || @event.monthly_day %>
+      <p>Reserva mensual</p>
     <% end %>
 
     <% if (@event.status == Event::PENDING) && policy(@event).accept_or_decline? %>
 
       <%= simple_form_for @event, url: accept_event_path(@event), method: :patch do |f| %>
-        <%= f.submit "Accept event" %>
+        <%= f.submit "Acceptar reserva", class: "btn btn-info btn-wd btn-outline" %>
       <% end %>
 
       <%= simple_form_for @event, url: decline_event_path(@event), method: :patch do |f| %>
-        <%= f.submit "Decline event" %>
+        <%= f.submit "Cancel·lar reserva", class: "btn btn-info btn-wd btn-outline" %>
       <% end %>
 
     <% end %>
@@ -20,7 +53,11 @@
     <% if (@event.status == Event::DECLINED) && policy(@event).accept_or_decline? %>
 
       <%= simple_form_for @event, url: accept_event_path(@event), method: :patch do |f| %>
-        <%= f.submit "Accept event" %>
+        <%= f.submit "Acceptar reserva", class: "btn btn-info btn-wd btn-outline" %>
+      <% end %>
+
+      <%= simple_form_for @event, url: pending_event_path(@event), method: :patch do |f| %>
+        <%= f.submit "Marcar com a pendent", class: "btn btn-info btn-wd btn-outline" %>
       <% end %>
 
     <% end %>
@@ -28,20 +65,17 @@
     <% if (@event.status == Event::ACCEPTED) && policy(@event).accept_or_decline? %>
 
       <%= simple_form_for @event, url: decline_event_path(@event), method: :patch do |f| %>
-        <%= f.submit "Decline event" %>
+        <%= f.submit "Cancel·lar reserva", class: "btn btn-info btn-wd btn-outline" %>
+      <% end %>
+
+      <%= simple_form_for @event, url: pending_event_path(@event), method: :patch do |f| %>
+        <%= f.submit "Marcar com a pendent", class: "btn btn-info btn-wd btn-outline" %>
       <% end %>
 
     <% end %>
-
-    <% if (@event.obert == true) && policy(@event).obert_o_tancat? %>
-      <%= simple_form_for @event, url: tancat_event_path(@event), method: :patch do |f| %>
-          <%= f.submit "Tancar event" %>
-      <% end %>
-
-    <% end %>
-
+<br>
     <% if policy(@event).edit? %>
-    <%= link_to 'Edit this event', edit_event_path(@event) %>
+    <%= link_to 'Editar reserva', edit_event_path(@event), class: "btn btn-info btn-wd btn-outline" %>
     <% end %>
 
 
@@ -49,7 +83,6 @@
       <%= link_to 'Delete this event', event_path(@event), method: :delete, data: { confirm: "Are you sure you want to delete this event?" } %>
     <% end %> -->
 
-
-
-<%= link_to "Back to all events", events_path %>
+  </div>
+</div>
 

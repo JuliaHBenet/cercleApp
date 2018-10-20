@@ -1,26 +1,32 @@
-<h2>Please enter event details for <%= @client.name %>:</h2>
+<div class="card">
+  <div class="card-header">
+    <h3>Entri la informació per la reserva de <%= @client.name.upcase %>:</h3>
+  </div>
 
-<%= simple_form_for @event do |f| %>
+  <div class="card-body">
+    <%= simple_form_for @event do |f| %>
 
-<%= f.input :name %>
-<%= f.input :description %>
-<%= f.input :eventstart %>
-<%= f.input :eventend %>
-<%= f.input :activitystart %>
-<%= f.input :activityend %>
-<%= f.input :representacio %>
-<%= f.input :weekly %>
-<%= f.input :monthly_day %>
-<%= f.input :monthly_number %>
-<%= f.input :recurrence_ends_at %>
-<%= f.input :comments, input_html: { rows: 5, style: "height: auto;" } %>
-<%= f.input :comments2, input_html: { rows: 5, style: "height: auto;" } %>
-<%= f.input :document %>
-<%= f.association :room %>
-<%= f.input :client_id, :as =>:hidden, :input_html => { :value => @client.id } %>
-<%= f.submit "Confirm event" %>
+    <%= f.input :name, :label => "Nom" %>
+    <%= f.input :description, :label => "Descripció"  %>
+    <%= f.input :eventstart, :label => "Data inici"  %>
+    <%= f.input :eventend, :label => "Data fi"  %>
+    <%= f.input :activitystart, :label => "Inici acivitat"  %>
+    <%= f.input :activityend, :label => "Fi activitat"  %>
+    <%= f.input :representacio, :label => ". Representació?" %>
+    <%= f.input :comments, :label => "Comentari general", input_html: { rows: 5, style: "height: auto;" } %>
+    <%= f.input :comments2, :label => "Comentari intern", input_html: { rows: 5, style: "height: auto;" } %>
+    <%= f.input :document, :label => "Link de documents"  %>
+    <%= f.association :room, :label => "Sala"  %>
+    <br>
+    <p>És una reserva recurrent?</p>
+    <%= f.input :weekly, :label => ". Setmanal" %>
+    <%= f.input :monthly_day, :label => ". Mensual (dia de la setmana)"  %>
+    <%= f.input :monthly_number, :label => ". Mensual (número del mes)"  %>
+    <%= f.input :recurrence_ends_at, :label => "Data fi de recurrència"  %>
+    <%= f.input :client_id, :as =>:hidden, :input_html => { :value => @client.id } %>
+    <br>
+    <%= f.submit "Confirmar reserva", class: "btn btn-info btn-wd btn-outline" %>
 
-<% end %>
-
-<p><%= link_to "Back to all clients", clients_path %></p>
-<%= link_to "Back to client"%>
+    <% end %>
+  </div>
+</div>

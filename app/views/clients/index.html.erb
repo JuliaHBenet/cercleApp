@@ -1,16 +1,15 @@
 <% content_for :title do %>
-  Available clients
+  <!-- Available clients -->
 <% end %>
-
-
-<% if policy(Client.new).new? %>
-  <%= link_to "Enter a new client", new_client_path, class: "btn btn-primary btn-wd"%>
-<% end %>
-<div><br></div>
 
 <h4>
-  Available clients
+  Clients disponibles
 </h4>
+<p></p>
+<% if policy(Client.new).new? %>
+  <%= link_to "Nou client", new_client_path, class: "btn btn-info btn-wd btn-outline"%>
+<% end %>
+<p></p>
   <% @clients.each do |client| %>
 <div class="card">
     <div class="card-body">

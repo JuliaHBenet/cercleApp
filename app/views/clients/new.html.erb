@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header">
-    <h2>Please enter the new client info:</h2>
+    <h3>Entri la informació del nou client:</h3>
   </div>
 
   <div class="card-body">
@@ -17,7 +17,7 @@
     <%= f.input :contactemail, :label => "Email" %>
     <%= f.input :comments, :label => "Comentaris" %>
     <%= f.input :lloguer, as: :radio_buttons %>
-    <%= f.submit "Confirm client" %>
+    <%= f.submit "Confirm client", class: "btn btn-info btn-wd btn-outline" %>
 
     <% end %>
   </div>

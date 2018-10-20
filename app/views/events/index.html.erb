@@ -1,25 +1,62 @@
-<h1>Here are all the events (lloguer false for every user and true only for admin as specified in event_policy)</h1>
+<% if params[:status] == Event::PENDING %>
+  <h3>Reserves pendents</h3>
+<% else %>
+  <h3>Totes les reserves</h3>
+<% end %>
+
 <ul>
   <% @events.order(eventstart: :desc).each do |event| %>
   <li>
-    <h2>
-      Event #<%= event.id %> <%= link_to event.name, event_path(event)%>
-    </h2>
-    <p>Start date: <%= event.eventstart %></p>
-    <p>End date: <%= event.eventend %></p>
-    <p>Room: <%= event.room.name %></p>
+    <h4>
+      #<%= event.id %> <%= link_to event.name.upcase, event_path(event)%>
+    </h4>
+    <p>Data inici: <%= event.eventstart.strftime("%d %b %Y a les %H:%M") %></p>
+    <p>Data fi: <%= event.eventend.strftime("%d %b %Y a les %H:%M") %></p>
+    <p>Sala: <%= event.room.name %></p>
     <p>Client: <%= event.client.name %></p>
+
+    <% if event.comments =! "" %>
+      <p>Comentari general: <%= event.comments %></p>
+    <% else %>
+      <p>Comentari general: no hi ha comentaris</p>
+    <% end %>
+    <% if event.comments2 =! "" %>
+      <p>Comentari intern: <%= event.comments2 %></p>
+    <% else %>
+      <p>Comentari intern: no hi ha comentaris</p>
+    <% end %>
+
     <% if params[:status] == Event::PENDING %>
+
       <% if (event.status == Event::PENDING) && policy(event).accept_or_decline? %>
-        <%= simple_form_for @event, url: accept_event_path(event), method: :patch do |f| %>
-          <%= f.submit "Accept event" %>
+        <%= simple_form_for event, url: accept_event_path(event), method: :patch do |f| %>
+          <%= f.submit "Acceptar reserva", class: "btn btn-info btn-wd btn-outline" %>
+        <% end %>
+
+        <%= simple_form_for event, url: decline_event_path(event), method: :patch do |f| %>
+          <%= f.submit "Cancel·lar reserva", class: "btn btn-info btn-wd btn-outline" %>
         <% end %>
       <% end %>
+
+      <% if (event.obert == true) && policy(event).obert_o_tancat? %>
+      <p>Reserva oberta</p>
+        <%= simple_form_for event, url: tancat_event_path(event), method: :patch do |f| %>
+            <%= f.submit "Tancar reserva" %>
+        <% end %>
+
+      <% elsif (event.obert == false) && policy(event).obert_o_tancat? %>
+      <p>Reserva tancada</p>
+        <%= simple_form_for event, url: obert_event_path(event), method: :patch do |f| %>
+          <%= f.submit "Obrir reserva" %>
+        <% end %>
+
+      <% end %>
+
     <% end %>
   </li>
   <% end %>
 </ul>
 
-<h4><%= link_to 'Back to informes', informes_path %></h4>
+<h4><%= link_to 'Back to informes', informes_path, class: "btn btn-info btn-wd btn-outline" %></h4>
 
 <!-- link_to event.id, room_event_path(event.room, event) -->

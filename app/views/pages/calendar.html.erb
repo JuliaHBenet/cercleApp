@@ -9,5 +9,5 @@
 </div>
 
 <% unless params[:print] %>
-  <h4><%= link_to 'Download as PDF', calendar_path(print: true), data: { turbolinks: false } %></h4>
+  <h4><%= link_to 'Versió per a imprimir', calendar_path(print: true), data: { turbolinks: false }, class: "btn btn-warning btn-wd" %></h4>
 <% end %>

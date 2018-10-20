@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     member do
       patch 'accept', to: 'events#accept'
       patch 'decline', to: 'events#decline'
+      patch 'pending', to: 'events#pending'
       patch 'obert', to: 'events#obert'
       patch 'tancat', to: 'events#tancat'
     end

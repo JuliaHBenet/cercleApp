@@ -1,15 +1,23 @@
-<h2><%= @client.name %></h2>
+<h2><%= @client.name.upcase %></h2>
 <p>#<%= @client.id %> </p>
-<p>Nom de contacte: <%= @client.contactname %></p>
-<p>Email: <%= @client.contactemail %></p>
-<p>Telèfon: <%= @client.contactphone1 %></p>
-<p>NIF: <%= @client.idcard %></p>
-<p>Adreça: <%= @client.address %> , <%= @client.postcode %>, <%= @client.city %></p>
-<% if @client.comments %>
-  <p>Comentaris: <%= @client.comments %></p>
+<p><b>Nom de contacte:</b> <%= @client.contactname %></p>
+<p><b>Email:</b> <%= @client.contactemail %></p>
+<p><b>Telèfon:</b> <%= @client.contactphone1 %></p>
+<% if @client.contactphone2 =! "" %>
+  <p><b>Telèfon 2:</b> <%= @client.contactphone2 %></p>
 <% end %>
+<p><b>NIF:</b> <%= @client.idcard %></p>
+<p><b>Adreça:</b> <%= @client.address %> , <%= @client.postcode %>, <%= @client.city %></p>
+<% if @client.comments %>
+  <p><b>Comentaris:</b> <%= @client.comments %></p>
+<% end %>
+
+<% if @client.falta_info %>
+  <p><b>FALTA INFO</b></p>
+<% end %>
+<br>
 <% if policy(@client).edit? %>
-<%= link_to "Edit this client", edit_client_path(@client), class: "btn btn-primary btn-wd" %>
+<%= link_to "Editar", edit_client_path(@client), class: "btn btn-info btn-wd btn-outline" %>
 <% end %>
 
 <!-- COMMENTED OUT
@@ -18,11 +26,13 @@
 <% end %>
  END OF COMMENTED OUT -->
 
-<%= link_to "Back to all clients", clients_path, class: "btn btn-primary btn-wd" %>
-
- <h3>Llista de reserves</h3>
+<%= link_to "Tots els clients", clients_path, class: "btn btn-info btn-wd btn-outline" %>
+<br>
+<br>
+ <h3>Llista de reserves de <%= @client.name.upcase %></h3>
+ <p></p>
 <% if policy(Event.new).create? %>
-  <%= link_to "Make a new event", new_client_event_path({client_id: @client}), class: "btn btn-success btn-wd" %>
+  <%= link_to "Nova reserva", new_client_event_path({client_id: @client}), class: "btn btn-info btn-wd btn-outline" %>
 <% end %>
 <ul>
   <% @client.events.order(eventstart: :desc).where(client: @client).each do |event| %>
@@ -33,7 +43,7 @@
     <p>Data inici: <%= event.eventstart.strftime("%d %b %Y a les %H:%M")  %></p>
     <p>Data fi: <%= event.eventend.strftime("%d %b %Y a les %H:%M") %></p>
     <p>Sala: <%= event.room.name %></p>
-    <p>Client: <%= event.client.name %></p>
+    <p>Status: <%= event.status %></p>
 
   </li>
   <% end %>

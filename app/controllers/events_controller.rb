@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only:[:show, :edit, :update, :destroy, :accept, :decline]
+  before_action :set_event, only:[:show, :edit, :update, :destroy, :accept, :decline, :pending]
 
   before_action :authenticate_user!, only: [:new, :create]
 
@@ -83,6 +83,12 @@ class EventsController < ApplicationController
   def decline
     authorize @event, :accept_or_decline?
     @event.update(status: Event::DECLINED)
+    redirect_to event_path(@event)
+  end
+
+  def pending
+    authorize @event, :accept_or_decline?
+    @event.update(status: Event::PENDING)
     redirect_to event_path(@event)
   end
 
