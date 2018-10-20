@@ -149,7 +149,7 @@ class EventsController < ApplicationController
     params.require(:event).permit(:lloguer, :status, :document, :representacio, :name,
       :description, :eventstart, :eventend, :activitystart, :activityend, :comments,
       :client_id, :room_id, :user, :backgroundColor, :borderColor, :weekly,
-      :monthly_number, :monthly_day, :recurrence_ends_at,
+      :monthly_number, :monthly_day, :recurrence_ends_at, :comments2,
       :edit_all_occurences)
   end
 
