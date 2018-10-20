@@ -24,7 +24,7 @@ class Event < ApplicationRecord
   def to_fullcalendar_hash
     {
       id: id,
-      title: name,
+      title: title,
       allDay: false,
       start: eventstart,
       end: eventend,
@@ -42,6 +42,13 @@ class Event < ApplicationRecord
     }[status]
   end
 
+  def title
+    if representacio
+      "[R] #{name}"
+    else
+      name
+    end
+  end
 
   def overlapping_event
     overlapping_event = room.events.where.not(id: id).all
