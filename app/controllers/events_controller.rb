@@ -112,6 +112,10 @@ class EventsController < ApplicationController
     if current_user.role == "admin"
       @event.status = Event::DECLINED
       @event.save
+      if params[:all]
+        Event.where(parent_event_id: @event.parent_event_id).update_all(status: Event::DECLINED)
+        Event.find(@event.parent_event_id).update(status: Event::DECLINED)
+      end
       redirect_to event_path(@event)
     else
       @event.comments = "This event has been preselected to destroy"
