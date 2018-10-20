@@ -34,6 +34,14 @@ class Event < ApplicationRecord
     }
   end
 
+  def catalan_status
+    {
+      PENDING => "Pendent",
+      ACCEPTED => "Acceptada",
+      DECLINED => "Cancel·lada",
+    }[status]
+  end
+
 
   def overlapping_event
     overlapping_event = room.events.where.not(id: id).all

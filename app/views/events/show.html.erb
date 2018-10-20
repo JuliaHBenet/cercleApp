@@ -4,7 +4,7 @@
   <div class="card-body">
 
     <p><b>Reserva #</b><%= @event.id %></p>
-    <p><b>Status:</b> <%= @event.status.capitalize %></p>
+    <p><b>Status:</b> <%= @event.catalan_status.capitalize %></p>
     <p><b>Descripció:</b> <%= @event.description.capitalize %></p>
     <p><b>Data inici:</b> <%= @event.eventstart.strftime("%d %b %Y a les %H:%M") %></p>
     <p><b>Data fi:</b> <%= @event.eventend.strftime("%d %b %Y a les %H:%M") %></p>
