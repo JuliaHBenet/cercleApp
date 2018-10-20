@@ -5,10 +5,10 @@ before_action :set_client, only: [:show, :edit, :update, :destroy]
     # @clients = Client.all .where(active: true)
     # @clients = policy_scope(Client)
 
-    if params[:lloguer]
+    if params.has_key?(:lloguer)
       @clients = policy_scope(Client.where(lloguer: params[:lloguer]))
-    else
-      @clients = policy_scope(Client.where(lloguer: params[:lloguer]))
+    elsif params[:with_missing_info]
+      @clients = policy_scope(Client.where(falta_info: true, lloguer: true))
     end
   end
 
