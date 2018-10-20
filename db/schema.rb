@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20181020132149) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "active", default: true
-    t.boolean "falta_info", default: false
+    t.boolean "falta_info"
   end
 
   create_table "events", force: :cascade do |t|
