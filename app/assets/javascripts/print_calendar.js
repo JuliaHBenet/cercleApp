@@ -15,6 +15,7 @@ const initialize_print_calendar = () => {
       editable: true,
       eventLimit: true,
       events: '/events.json',
+      locale: 'ca',
     });
   });
 };

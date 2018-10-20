@@ -18,6 +18,7 @@ initialize_calendar = function () {
       editable: true,
       eventLimit: true,
       events: '/events.json',
+      locale: 'ca',
 
       select(start, end) {
         $.getScript('/events/new', () => {});
