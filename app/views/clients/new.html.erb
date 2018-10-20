@@ -16,7 +16,8 @@
     <%= f.input :contactphone2, :label => "Telèfon 2" %>
     <%= f.input :contactemail, :label => "Email" %>
     <%= f.input :comments, :label => "Comentaris" %>
-    <%= f.input :lloguer, as: :radio_buttons %>
+    <%= f.input :lloguer, as: :radio_buttons, :label => "Lloguer ." %>
+    <%= f.input :falta_info, :label => ". Falta Info" %>
     <%= f.submit "Confirm client", class: "btn btn-info btn-wd btn-outline" %>
 
     <% end %>

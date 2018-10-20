@@ -3,9 +3,10 @@
 <% end %>
 
 <h4>
-  Clients disponibles
+  Llista de clients
 </h4>
 <p></p>
+
 <% if policy(Client.new).new? %>
   <%= link_to "Nou client", new_client_path, class: "btn btn-info btn-wd btn-outline"%>
 <% end %>

@@ -63,11 +63,11 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                   <% if current_user&.role == 'admin' %>
-                                    <%= link_to "Pending events", events_path(status: Event::PENDING), class: "dropdown-item" %>
+                                    <%= link_to "Reserves pendents", events_path(status: Event::PENDING), class: "dropdown-item" %>
                                   <% end %>
                                   <div class="divider"></div>
                                   <% if current_user %>
-                                    <%= link_to "Profile", user_path(current_user), class: "dropdown-item" %>
+                                    <%= link_to "Perfil", user_path(current_user), class: "dropdown-item" %>
                                     <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
                                   <% end %>
                                 </div>
