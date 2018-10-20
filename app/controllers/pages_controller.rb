@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  # skip_before_action :authenticate_registration!, only: :home
+
   def home
   end
 
@@ -10,8 +10,12 @@ class PagesController < ApplicationController
   end
 
   def calendar
-    if params[:print]
-      render "calendar", layout: 'print'
-    end
+  end
+
+  def print_calendar_picker
+  end
+
+  def print_calendar
+    render "print_calendar", layout: 'print'
   end
 end

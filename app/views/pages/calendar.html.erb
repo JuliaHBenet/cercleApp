@@ -8,6 +8,4 @@
   </div>
 </div>
 
-<% unless params[:print] %>
-  <h4><%= link_to 'Versió per a imprimir', calendar_path(print: true), data: { turbolinks: false }, class: "btn btn-warning btn-wd" %></h4>
-<% end %>
+<h4><%= link_to 'Versió per a imprimir', print_calendar_picker_path, data: { turbolinks: false }, class: "btn btn-warning btn-wd" %></h4>

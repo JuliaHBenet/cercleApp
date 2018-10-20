@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     get :home
     get :informes
     get :documents
+    get :print_calendar_picker
+    get :print_calendar
   end
 
   get '/redirect', to: 'event#redirect', as: 'redirect'
