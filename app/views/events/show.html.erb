@@ -14,12 +14,12 @@
     <% end %>
     <p><b>Sala:</b> <%= @event.room.name %></p>
     <% if @event.document != "" %>
-      <p><b>Documents:</b> <%= @event.document %></p>
+      <p><b>Documents:</b> <%= text_with_links(@event.document) %></p>
     <% else %>
       <p><b>Documents:</b> Cap document adjunt</p>
     <% end %>
     <% if @event.comments != "" %>
-      <p><b>Comentari general:</b> <%= text_with_links(@event.comments) %></p>
+      <p><b>Comentari general:</b> <%= @event.comments %></p>
     <% elsif @event.comments2 != "" %>
       <p><b>Comentari intern:</b> <%= @event.comments2 %></p>
     <% else %>
