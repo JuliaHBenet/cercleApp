@@ -19,7 +19,7 @@
       <p><b>Documents:</b> Cap document adjunt</p>
     <% end %>
     <% if @event.comments != "" %>
-      <p><b>Comentari general:</b> <%= @event.comments %></p>
+      <p><b>Comentari general:</b> <%= text_with_links(@event.comments) %></p>
     <% elsif @event.comments2 != "" %>
       <p><b>Comentari intern:</b> <%= @event.comments2 %></p>
     <% else %>
