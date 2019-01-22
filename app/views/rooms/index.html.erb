@@ -1,9 +1,9 @@
-<h1>Available rooms</h1>
+<h1>Sales disponibles</h1>
 <ul>
   <% @rooms.each do |room| %>
   <li>
     <h2>
-      Room #<%= link_to room.id, room_path(room)%>
+      Sala #<%= link_to room.id, room_path(room)%>
     </h2>
     <p>Nom: <%= room.name %></p>
   </li>

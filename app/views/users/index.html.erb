@@ -1,13 +1,13 @@
-<h1>Available users</h1>
+<h1>Usuaris disponibles</h1>
 <ul>
   <% @users.each do |user| %>
   <li>
     <h2>
-      User #<%= link_to user.id, user_path(user)%>
+      Usuari #<%= link_to user.id, user_path(user)%>
     </h2>
     <p>Nom: <%= user.name %></p>
     <p>Email: <%= user.email %></p>
-    <p>Role: <%= user.role %></p>
+    <p>Rol: <%= user.role %></p>
   </li>
   <% end %>
 

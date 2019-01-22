@@ -45,7 +45,7 @@ before_action :set_client, only: [:show, :edit, :update, :destroy]
 
   def destroy
     authorize @client
-    flash[:alert] = "Are you sure?"
+    flash[:alert] = "Estàs segur/a?"
     @client.active = false
     redirect_to clients_path
   end

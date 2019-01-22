@@ -63,3 +63,4 @@ gem 'mail_form'
 gem 'google-api-client', require: 'google/apis/calendar_v3'
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
+gem "sprockets", ">= 3.7.2"

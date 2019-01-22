@@ -3,7 +3,6 @@ class Event < ApplicationRecord
   belongs_to :room
   belongs_to :user
   validates :name, presence: true
-  validates :description, presence: true
   validates :eventstart, presence: true
   validates :eventend, presence: true
 
@@ -55,7 +54,7 @@ class Event < ApplicationRecord
 
     overlapping_event.each do |oa|
       if (eventstart...eventend).overlaps?(oa.eventstart...oa.eventend)
-        errors.add(:base, "Room not available in this period of time (see event ##{oa.id})")
+        errors.add(:base, "Sala no disponible (veure reserva ##{oa.id})")
       end
     end
   end
@@ -66,7 +65,7 @@ class Event < ApplicationRecord
 
         Event.joins(:room).where(rooms: { name:  ["Descans", "Capella"] }).each do |oa|
           if (eventstart...eventend).overlaps?(oa.eventstart...oa.eventend)
-            errors.add(:base, 'Room not available in this period of time')
+            errors.add(:base, 'Sala no disponible')
           end
         end
 
@@ -79,7 +78,7 @@ class Event < ApplicationRecord
 
       related_events.each do |oa|
         if (eventstart...eventend).overlaps?(oa.eventstart...oa.eventend)
-          errors.add(:base, 'Room not available in this period of time')
+          errors.add(:base, 'Sala no disponible')
         end
       end
 

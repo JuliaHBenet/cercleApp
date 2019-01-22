@@ -49,7 +49,7 @@ class EventsController < ApplicationController
       @event.create_recurring_events
       redirect_to calendar_path
     else
-      flash[:alert] = "There is an overlapping event"
+      flash[:alert] = "Horari bloquejat per una altra reserva"
       render :new
     end
   end
