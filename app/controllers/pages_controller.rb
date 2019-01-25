@@ -4,6 +4,10 @@ class PagesController < ApplicationController
   end
 
   def informes
+    @clients = Client.all
+    @client = Client.find_by_id(:client_id)
+    @events = Event.all
+    @event = Event.find_by_id(:event_id)
   end
 
   def documents
@@ -18,4 +22,6 @@ class PagesController < ApplicationController
   def print_calendar
     render "print_calendar", layout: 'print'
   end
+
+
 end
