@@ -13,11 +13,12 @@
         </h4>
 
         <% client.events.where(client: client).each do |event| %>
-        <h3>
-          #<%= event.id %> <%= link_to event.name, event_path(event)%>
-        </h3>
-        <p>Data inici: <%= event.eventstart.strftime("%d %b %Y a les %H:%M")  %></p>
-        <p>Data fi: <%= event.eventend.strftime("%d %b %Y a les %H:%M") %></p>
+
+        <p><b><%= event.name %></b></p>
+
+        <p>Temps acumulat: <%= (event.eventend - event.eventstart)/1.hour %> hores</p>
+
+
         <% end %>
 
 
