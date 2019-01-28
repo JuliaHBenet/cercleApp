@@ -49,7 +49,8 @@ class EventsController < ApplicationController
       @event.create_recurring_events
       redirect_to calendar_path
     else
-      flash[:alert] = "Horari bloquejat per una altra reserva"
+      flash[:alert] = "RESERVA NO GUARDADA"
+      flash[:alert] = @event.errors.full_messages
       render :new
     end
   end

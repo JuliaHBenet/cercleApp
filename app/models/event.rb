@@ -8,6 +8,9 @@ class Event < ApplicationRecord
 
   validate :overlapping_event
   validate :blocking_events
+  validate :blocking_golfes
+  validate :eventend_after_eventstart?
+
 
   before_save :set_border_color
   before_save :set_background_color
@@ -65,7 +68,7 @@ class Event < ApplicationRecord
 
         Event.joins(:room).where(rooms: { name:  ["Descans", "Capella"] }).each do |oa|
           if (eventstart...eventend).overlaps?(oa.eventstart...oa.eventend)
-            errors.add(:base, 'Sala no disponible')
+            errors.add(:base, 'Sala no disponible (veure Escenari)')
           end
         end
 
@@ -78,20 +81,20 @@ class Event < ApplicationRecord
 
       related_events.each do |oa|
         if (eventstart...eventend).overlaps?(oa.eventstart...oa.eventend)
-          errors.add(:base, 'Sala no disponible')
+          errors.add(:base, 'Sala no disponible (veure Escenari)')
         end
       end
 
     end
   end
 
-  # def blocking_golfes
-  #   if room.name == Room::GOLFES
-  #     if eventstart > 22h
-  #       errors.add(:base, 'Sala no disponible a partir de les 22h')
-  #     end
-  #   end
-  # end
+  def blocking_golfes
+    if room.name == Room::GOLFES
+      if eventend.strftime("%H:%M") > "22:00"
+        errors.add(:base, 'Sala no disponible a partir de les 22h')
+      end
+    end
+  end
 
 
   def create_recurring_events
@@ -177,6 +180,13 @@ class Event < ApplicationRecord
     }
     self.backgroundColor = background_colors[room_id.to_i] || "#cccccc"
   end
+
+
+def eventend_after_eventstart?
+  if eventend < eventstart
+    errors.add :eventend, "ha de ser posterior"
+  end
+end
 
 
 end
