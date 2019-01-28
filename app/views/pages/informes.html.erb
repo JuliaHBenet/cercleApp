@@ -4,18 +4,40 @@
 <h5><%= link_to 'Tots els lloguers', events_path(lloguer: true), class: "btn btn-label" %></h5>
 <h5><%= link_to 'Lloguers falta info', clients_path(with_missing_info: true), class: "btn btn-label" %></h5>
 
-<h5>Temps acumulat de reserva</h5>
-  <% @clients.each do |client| %>
-    <% if client.lloguer == false %>
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">
-            #<%= client.id  %> <%= link_to client.name, client_path(client)%> Temps acumulat: <%= client.temps_acumulat %> hores
-          </h4>
-        </div>
-      </div>
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">
+    Temps acumulat de reserva (seccions)
+    <p></p>
+    </h4>
+    <% @clients.each do |client| %>
+      <p>
+        <% if client.lloguer == false %>
+        #<%= client.id  %> <%= link_to client.name, client_path(client)%> --> <%= client.temps_acumulat %> hores
+        <% end %>
+      </p>
     <% end %>
-  <% end %>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">
+    Lloguers proposats vs Lloguers realitzats
+    <p></p>
+    </h4>
+
+    <% @clients.each do |client| %>
+      <% if client.lloguer == true %>
+      #<%= client.id %> <%= link_to client.name, client_path(client) %>
+    <p>Proposats:
+        <%= client.events.count %> lloguers </p>
+    <p>Realitzats:
+        <%= client.events.where(status: Event::ACCEPTED).count %> lloguers </p>
+      <% end %>
+    <% end %>
+  </div>
+</div>
 
 
  <!-- - event.start) / 1.hour).round -->
