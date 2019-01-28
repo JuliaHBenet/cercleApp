@@ -85,6 +85,14 @@ class Event < ApplicationRecord
     end
   end
 
+  # def blocking_golfes
+  #   if room.name == Room::GOLFES
+  #     if eventstart > 22h
+  #       errors.add(:base, 'Sala no disponible a partir de les 22h')
+  #     end
+  #   end
+  # end
+
 
   def create_recurring_events
     if weekly

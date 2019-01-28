@@ -6,24 +6,15 @@
 
 <h5>Temps acumulat de reserva</h5>
   <% @clients.each do |client| %>
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">
-          #<%= client.id %> <%= link_to client.name, client_path(client)%>
-        </h4>
-
-        <% client.events.where(client: client).each do |event| %>
-
-        <p><b><%= event.name %></b></p>
-
-        <p>Temps acumulat: <%= (event.eventend - event.eventstart)/1.hour %> hores</p>
-
-
-        <% end %>
-
-
+    <% if client.lloguer == false %>
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">
+            #<%= client.id  %> <%= link_to client.name, client_path(client)%> Temps acumulat: <%= client.temps_acumulat %> hores
+          </h4>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 
 

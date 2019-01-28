@@ -1,5 +1,7 @@
 <% if params[:status] == Event::PENDING %>
   <h3>Reserves pendents</h3>
+<% elsif params[:lloguer] %>
+  <h3>Tots els lloguers</h3>
 <% else %>
   <h3>Totes les reserves</h3>
 <% end %>
