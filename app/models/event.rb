@@ -46,7 +46,7 @@ class Event < ApplicationRecord
 
   def title
     if representacio
-      "[R] #{name}"
+      "[** R **] #{name}"
     else
       name
     end
@@ -68,7 +68,7 @@ class Event < ApplicationRecord
 
         Event.joins(:room).where(rooms: { name:  ["Descans", "Capella"] }).each do |oa|
           if (eventstart...eventend).overlaps?(oa.eventstart...oa.eventend)
-            errors.add(:base, 'Sala no disponible (veure Escenari)')
+            errors.add(:base, 'Sala no disponible (veure Escena')
           end
         end
 

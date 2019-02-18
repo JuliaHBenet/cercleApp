@@ -29,11 +29,15 @@ class EventPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if (user.role == "admin")
-        scope.all
+      if user.role == 'admin'
+        scope.all #.sort(:lloguer)
       else
-        scope.where(lloguer: false)
+        scope.all
       end
     end
   end
 end
+# scope :with_cd_player, joins(:car => :radio).where('cars.radio_id is not null').where("radios.category = 'cd_player'")
+ # :lloguer, => {
+ #        .joins(:client)
+ #        .where(client: {lloguer: false})}
