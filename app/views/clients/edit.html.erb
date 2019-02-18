@@ -1,3 +1,31 @@
 <h2>Edit <%= @client.name %></h2>
-<%= link_to "Delete this client", client_path(@client), method: :delete %>
-<%= link_to "Back to client", client_path(@client)%>
+
+<div class="card">
+  <div class="card-header">
+    <h3>Entri la informació del nou client:</h3>
+  </div>
+
+  <div class="card-body">
+    <%= simple_form_for @client do |f| %>
+
+    <%= f.input :name, :label => "Nom" %>
+    <%= f.input :idcard, :label => "NIF" %>
+    <%= f.input :address, :label => "Adreça" %>
+    <%= f.input :postcode, :label => "Codi Postal" %>
+    <%= f.input :city, :label => "Ciutat" %>
+    <%= f.input :contactname, :label => "Nom de contacte" %>
+    <%= f.input :contactphone1, :label => "Telèfon 1" %>
+    <%= f.input :contactphone2, :label => "Telèfon 2" %>
+    <%= f.input :contactemail, :label => "Email" %>
+    <%= f.input :comments, :label => "Comentaris" %>
+    <%= f.input :lloguer, as: :radio_buttons, :label => "Lloguer ." %>
+    <%= f.input :falta_info, :label => ". Falta Info" %>
+    <%= f.submit "Confirmar client", class: "btn btn-info btn-wd btn-outline" %>
+
+    <%= link_to "Eliminar client", client_path(@client), method: :delete, class: "btn btn-info btn-wd btn-outline" %>
+
+    <% end %>
+  </div>
+</div>
+
+<%= link_to "Tornar al perfil del client", client_path(@client), class: "btn btn-info btn-wd btn-outline"%>

@@ -5,30 +5,30 @@
         <%= form_tag print_calendar_path, method: :get do %>
 
           <div class="form-group">
-            <%= label_tag :date, "Date" %>
+            <%= label_tag :date, "Data" %>
             <%= date_field_tag :date, Date.today, class: "form-control" %>
           </div>
           <div class="form-group">
             <div class="form-check">
               <%= label_tag 'view_type' do %>
                 <%= radio_button_tag 'view_type', 'agendaDay', true %>
-                <span>Day</span>
+                <span>Dia</span>
               <% end %>
             </div>
             <div class="form-check">
               <%= label_tag 'view_type' do %>
                 <%= radio_button_tag 'view_type', 'agendaWeek' %>
-                <span>Week</span>
+                <span>Setmana</span>
               <% end %>
             </div>
             <div class="form-check">
               <%= label_tag 'view_type' do %>
                 <%= radio_button_tag 'view_type', 'month' %>
-                <span>Month</span>
+                <span>Mes</span>
               <% end %>
             </div>
           </div>
-          <%= submit_tag "Print", class: "btn btn-info btn-wd btn-outline" %>
+          <%= submit_tag "Imprimir", class: "btn btn-info btn-wd btn-outline" %>
 
         <% end %>
       </div>
