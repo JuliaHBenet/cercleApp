@@ -13,10 +13,10 @@
 <p></p>
   <% @clients.each do |client| %>
 <div class="card">
-    <div class="card-body">
-      <h4 class="card-title">
-        #<%= client.id %> <%= link_to client.name, client_path(client)%>
-      </h4>
-    </div>
+  <div class="card-body">
+    <h4 class="card-title">
+      #<%= client.id %> <%= link_to client.name, client_path(client)%>
+    </h4>
+  </div>
 </div>
   <% end %>

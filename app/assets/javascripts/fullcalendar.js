@@ -13819,7 +13819,7 @@ var TimeGridEventRenderer = /** @class */ (function (_super) {
             '<div class="fc-content">' +
             (timeText ?
                 '<div class="fc-time"' +
-                    ' data-start="' + util_1.htmlEscape(startTimeText) + '"' +
+                    // ' data-start="' + util_1.htmlEscape(startTimeText) + '"' +
                     ' data-full="' + util_1.htmlEscape(fullTimeText) + '"' +
                     '>' +
                     '<span>' + util_1.htmlEscape(timeText) + '</span>' +

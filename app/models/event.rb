@@ -3,12 +3,14 @@ class Event < ApplicationRecord
   belongs_to :room
   belongs_to :user
   validates :name, presence: true
-  validates :description, presence: true
   validates :eventstart, presence: true
   validates :eventend, presence: true
 
   validate :overlapping_event
   validate :blocking_events
+  validate :blocking_golfes
+  validate :eventend_after_eventstart?
+
 
   before_save :set_border_color
   before_save :set_background_color
@@ -44,7 +46,7 @@ class Event < ApplicationRecord
 
   def title
     if representacio
-      "[R] #{name}"
+      "[** R **] #{name}"
     else
       name
     end
@@ -55,7 +57,7 @@ class Event < ApplicationRecord
 
     overlapping_event.each do |oa|
       if (eventstart...eventend).overlaps?(oa.eventstart...oa.eventend)
-        errors.add(:base, "Room not available in this period of time (see event ##{oa.id})")
+        errors.add(:base, "Sala no disponible (veure reserva ##{oa.id})")
       end
     end
   end
@@ -66,7 +68,7 @@ class Event < ApplicationRecord
 
         Event.joins(:room).where(rooms: { name:  ["Descans", "Capella"] }).each do |oa|
           if (eventstart...eventend).overlaps?(oa.eventstart...oa.eventend)
-            errors.add(:base, 'Room not available in this period of time')
+            errors.add(:base, 'Sala no disponible (veure Escena')
           end
         end
 
@@ -79,10 +81,18 @@ class Event < ApplicationRecord
 
       related_events.each do |oa|
         if (eventstart...eventend).overlaps?(oa.eventstart...oa.eventend)
-          errors.add(:base, 'Room not available in this period of time')
+          errors.add(:base, 'Sala no disponible (veure Escenari)')
         end
       end
 
+    end
+  end
+
+  def blocking_golfes
+    if room.name == Room::GOLFES
+      if eventend.strftime("%H:%M") > "22:00"
+        errors.add(:base, 'Sala no disponible a partir de les 22h')
+      end
     end
   end
 
@@ -170,6 +180,13 @@ class Event < ApplicationRecord
     }
     self.backgroundColor = background_colors[room_id.to_i] || "#cccccc"
   end
+
+
+def eventend_after_eventstart?
+  if eventend < eventstart
+    errors.add :eventend, "ha de ser posterior"
+  end
+end
 
 
 end

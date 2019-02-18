@@ -3,5 +3,6 @@ class Room < ApplicationRecord
   validates :name, presence: true
 
   ESCENARI = "Escenari".freeze
+  GOLFES = "Golfes". freeze
 
 end
